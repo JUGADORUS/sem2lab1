@@ -21,19 +21,24 @@ namespace sem2lab1
             _buyers.Add(new DrugBuyer(name, district, drug));
         }
 
-        private void GroupByFavouriteDrug()
+        private string GroupByFavouriteDrug()
         {
             var groups = _buyers.GroupBy(buyer => buyer.FavouriteDrug);
+            string groupsInfo = "";
 
             foreach (var group in groups)
             {
-                Console.WriteLine($"Любимый наркотик: {group.Key}");
+                groupsInfo += $"Любимый наркотик: {group.Key}\n";
 
                 foreach (var buyer in group)
                 {
-                    Console.WriteLine($"{buyer.Name}, его район: ({buyer.District})");
+                    groupsInfo += $"{buyer.Name}, его район: {buyer.District}\n";
                 }
+
+                groupsInfo += "\n";
             }
+
+            return groupsInfo;
         }
 
         private void RemoveBuyer(int index)
@@ -54,19 +59,9 @@ namespace sem2lab1
             return buyersInfo;
         }
 
-        private void ShowBuyer()
+        private string ShowBuyer(int index)
         {
-
-            Console.WriteLine("Чье досье вам нужно? Введите индекс");
-
-            if (int.TryParse(Console.ReadLine(), out int index))
-            {
-                Console.WriteLine($"{_buyers[index].Name}. Любимый наркотик - {_buyers[index].FavouriteDrug}, он с района: {_buyers[index].District}");
-            }
-            else
-            {
-                Console.WriteLine("Неверный ввод");
-            }
+            return $"{_buyers[index].Name}. Любимый наркотик - {_buyers[index].FavouriteDrug}, он с района: {_buyers[index].District}";
         }
 
         private void AddBuyers()
