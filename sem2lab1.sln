@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sem2lab1", "sem2lab1\sem2lab1.csproj", "{55CA631C-1D0E-4434-93D6-D6D31ADE64D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{805BF6AD-2715-475D-824F-B2B35B7C8447}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{89EC5BEE-CA2B-40E2-A9FA-B35FBD424D3D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55CA631C-1D0E-4434-93D6-D6D31ADE64D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55CA631C-1D0E-4434-93D6-D6D31ADE64D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55CA631C-1D0E-4434-93D6-D6D31ADE64D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55CA631C-1D0E-4434-93D6-D6D31ADE64D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{805BF6AD-2715-475D-824F-B2B35B7C8447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{805BF6AD-2715-475D-824F-B2B35B7C8447}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{805BF6AD-2715-475D-824F-B2B35B7C8447}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{805BF6AD-2715-475D-824F-B2B35B7C8447}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89EC5BEE-CA2B-40E2-A9FA-B35FBD424D3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89EC5BEE-CA2B-40E2-A9FA-B35FBD424D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89EC5BEE-CA2B-40E2-A9FA-B35FBD424D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89EC5BEE-CA2B-40E2-A9FA-B35FBD424D3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EFE34FA5-1674-4468-BE18-C3C77D464999}
+	EndGlobalSection
+EndGlobal
