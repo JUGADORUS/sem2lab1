@@ -15,11 +15,12 @@ namespace WindowsForms
 {
     public partial class MainForm : Form
     {
-        private DrugLaboratory _DrugLab;
+        private DrugLaboratory _drugLab;
+
         public MainForm( DrugLaboratory lab)
         {
             InitializeComponent();
-            _DrugLab = lab;
+            _drugLab = lab;
         }
 
         private void MainForm_Load1(object sender, EventArgs e)
@@ -30,7 +31,7 @@ namespace WindowsForms
         private void LoadBuyers()
         {
             DGV_Buyers.DataSource = null;
-            DGV_Buyers.DataSource = _DrugLab.GetAllBuyers();
+            DGV_Buyers.DataSource = _drugLab.GetAllBuyers();
         }
 
         private void button_Delete_Click_1(object sender, EventArgs e)
@@ -54,9 +55,8 @@ namespace WindowsForms
             if (result != DialogResult.Yes)
                 return;
 
-            _DrugLab.RemoveBuyer(drugBuyer);
+            _drugLab.RemoveBuyer(drugBuyer);
             LoadBuyers();
-
         }
 
         private void button_Create_Click_1(object sender, EventArgs e)
@@ -71,7 +71,7 @@ namespace WindowsForms
                 return;
             }
 
-            _DrugLab.AddNewBuyer(name, district, favouriteDrug);
+            _drugLab.AddNewBuyer(name, district, favouriteDrug);
             MessageBox.Show("Новый покупатель успешно добавлен!");
 
             LoadBuyers();
@@ -79,7 +79,6 @@ namespace WindowsForms
             textBoxName.Clear();
             textBoxDistrict.Clear();
             textBoxDrug.Clear();
-
         }
     }
 }
