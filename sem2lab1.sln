@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36221.1 d17.14
+VisualStudioVersion = 17.14.36221.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sem2lab1", "sem2lab1\sem2lab1.csproj", "{55CA631C-1D0E-4434-93D6-D6D31ADE64D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{805BF6AD-2715-475D-824F-B2B35B7C8447}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{89EC5BEE-CA2B-40E2-A9FA-B35FBD424D3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsForms", "WindowsForms\WindowsForms.csproj", "{2DF54E72-64E0-4DA1-A1A2-21AF71F6C580}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{89EC5BEE-CA2B-40E2-A9FA-B35FBD424D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89EC5BEE-CA2B-40E2-A9FA-B35FBD424D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89EC5BEE-CA2B-40E2-A9FA-B35FBD424D3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DF54E72-64E0-4DA1-A1A2-21AF71F6C580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DF54E72-64E0-4DA1-A1A2-21AF71F6C580}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DF54E72-64E0-4DA1-A1A2-21AF71F6C580}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DF54E72-64E0-4DA1-A1A2-21AF71F6C580}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Model;
 
-namespace sem2lab1
+namespace BusinessLogic
 {
-    internal class DrugLaboratory
+    public class DrugLaboratory
     {
         private List<DrugBuyer> _buyers = new List<DrugBuyer>();
 
@@ -19,6 +20,17 @@ namespace sem2lab1
         public void AddNewBuyer(string name, string district,string drug)
         {
             _buyers.Add(new DrugBuyer(name, district, drug));
+        }
+
+        private string ShowBuyer(int index)
+        {
+            return $"{_buyers[index].Name}. Любимый наркотик - {_buyers[index].FavouriteDrug}, он с района: {_buyers[index].District}";
+        }
+
+        //Здесь тоже изменила метод с индекса на самого покупателя.
+        public void RemoveBuyer(DrugBuyer buyer)
+        {
+            _buyers.Remove(buyer);
         }
 
         private string GroupByFavouriteDrug()
@@ -33,35 +45,38 @@ namespace sem2lab1
                 foreach (var buyer in group)
                 {
                     groupsInfo += $"{buyer.Name}, его район: {buyer.District}\n";
-                }
 
+                }
                 groupsInfo += "\n";
             }
 
             return groupsInfo;
         }
 
-        private void RemoveBuyer(int index)
+        public List<DrugBuyer> GetAllBuyers()
         {
-            _buyers.RemoveAt(index);
-        }
+            /*Я поменяла этот метод т.к. по тз необходимо пользоваться одним методом для вывода и на WinForms
+            и в консоль. Мне необходим сам список, а не строка, поэтому при выводе в консоль используй код ниже?,
+            ну или измени как тебе удобно:
+            */
 
+            //DrugLaboratory lab = new DrugLaboratory();
+            //foreach (var buyer in lab.GetAllBuyers())
+            //{
+            //    Console.WriteLine($"{buyer.Name}. Геолокация - {buyer.District}. Любимый наркотик - {buyer.FavouriteDrug}");
+            //}
 
-        private string GetAllBuyers()
-        {
-            string buyersInfo = "";
+            //Старый код
+            //string buyersInfo = "";
 
-            for(int i = 0; i < _buyers.Count; i++)
-            {
-                buyersInfo = buyersInfo + ($"{_buyers[i].Name}. Геолокация - {_buyers[i].District}. Любимый наркотик - {_buyers[i].FavouriteDrug}\n");
-            }
+            //for(int i = 0; i < _buyers.Count; i++) 
+            //{
+            //    buyersInfo += $"{_buyers[i].Name}. Геолокация - {_buyers[i].District}. Любимый наркотик - {_buyers[i].FavouriteDrug}\n"; 
+            //}
 
-            return buyersInfo;
-        }
+            //return buyersInfo;
 
-        private string ShowBuyer(int index)
-        {
-            return $"{_buyers[index].Name}. Любимый наркотик - {_buyers[index].FavouriteDrug}, он с района: {_buyers[index].District}";
+            return _buyers;
         }
 
         private void AddBuyers()

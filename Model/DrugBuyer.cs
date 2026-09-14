@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sem2lab1
+namespace Model
 {   
     public class DrugBuyer
     {
