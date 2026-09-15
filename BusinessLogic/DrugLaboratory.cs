@@ -80,9 +80,9 @@ namespace BusinessLogic
             return _buyers;
         }
 
-        public void ChangeInformation()
+        public void ChangeInformation(string name, string district, string favouriteDrug, DrugBuyer drugBuyer)
         {
-
+            drugBuyer.ChangeInformation(name, district, favouriteDrug);
         }
 
         private void AddBuyers()
