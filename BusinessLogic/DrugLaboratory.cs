@@ -17,6 +17,34 @@ namespace BusinessLogic
             AddBuyers();
         }
 
+        public List<string> GetUniqueDrug() 
+        {
+            List<string> result = new List<string>();
+
+            foreach (DrugBuyer buyer in _buyers) 
+            {
+                if (!result.Contains(buyer.FavouriteDrug)) 
+                {
+                    result.Add(buyer.FavouriteDrug);
+                }
+            }
+            return result;
+        }
+
+        public List<DrugBuyer> GetBuyersByDrug(string drug) 
+        {   
+            List<DrugBuyer> result = new List<DrugBuyer>();
+
+            foreach(DrugBuyer buyer in _buyers) 
+            {
+                if (buyer.FavouriteDrug == drug) 
+                {
+                    result.Add(buyer);
+                }
+            }
+            return result;
+            
+        }
         public void AddNewBuyer(string name, string district,string drug)
         {
             _buyers.Add(new DrugBuyer(name, district, drug));

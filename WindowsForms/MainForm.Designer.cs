@@ -38,6 +38,7 @@
             this.button_Create = new System.Windows.Forms.Button();
             this.labelForName = new System.Windows.Forms.Label();
             this.DGV_Buyers = new System.Windows.Forms.DataGridView();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Buyers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,6 +99,7 @@
             this.button_Update.TabIndex = 13;
             this.button_Update.Text = "Обновить";
             this.button_Update.UseVisualStyleBackColor = true;
+            this.button_Update.Click += new System.EventHandler(this.button_Update_Click);
             // 
             // button_Create
             // 
@@ -128,11 +130,21 @@
             this.DGV_Buyers.Size = new System.Drawing.Size(490, 248);
             this.DGV_Buyers.TabIndex = 10;
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(304, 13);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(372, 36);
+            this.listBox1.TabIndex = 20;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.textBoxDrug);
             this.Controls.Add(this.labelForDrug);
             this.Controls.Add(this.textBoxDistrict);
@@ -164,6 +176,7 @@
         private System.Windows.Forms.Button button_Create;
         private System.Windows.Forms.Label labelForName;
         private System.Windows.Forms.DataGridView DGV_Buyers;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 

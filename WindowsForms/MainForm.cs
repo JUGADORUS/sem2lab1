@@ -80,5 +80,62 @@ namespace WindowsForms
             textBoxDistrict.Clear();
             textBoxDrug.Clear();
         }
+
+        private void button_Update_Click(object sender, EventArgs e)
+        {
+            if (DGV_Buyers.CurrentRow == null)
+            {
+                MessageBox.Show("Выберете пользователя для изменения данных, нажав на него в списке.");
+                return;
+            }
+
+            DrugBuyer drugBuyer = DGV_Buyers.CurrentRow.DataBoundItem as DrugBuyer;
+
+            if (drugBuyer == null)
+            {
+                MessageBox.Show("Не удалось определить покупателя. Попробуйте еще раз.");
+                return;
+            }
+
+            string name = textBoxName.Text;
+            string district = textBoxDistrict.Text;
+            string favouriteDrug = textBoxDrug.Text;
+
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(district) || string.IsNullOrWhiteSpace(favouriteDrug))
+            {
+                MessageBox.Show("Заполните все поля перед изменением!");
+                return;
+            }
+
+            if (drugBuyer.Name == name && drugBuyer.District == district && drugBuyer.FavouriteDrug == favouriteDrug)
+            {
+                MessageBox.Show("Введите новые данные для изменения.");
+
+                textBoxName.Clear();
+                textBoxDistrict.Clear();
+                textBoxDrug.Clear();
+                LoadBuyers();
+
+                return;
+
+            }
+
+            var result = MessageBox.Show($"Изменить данные о {drugBuyer.Name}?", "Подтверждение", MessageBoxButtons.YesNo);
+
+            if (result != DialogResult.Yes)
+                return;
+
+            drugBuyer.Name = name;
+            drugBuyer.District = district;
+            drugBuyer.FavouriteDrug = favouriteDrug;
+
+            MessageBox.Show("Данные успешно изменены.");
+
+            textBoxName.Clear();
+            textBoxDistrict.Clear();
+            textBoxDrug.Clear();
+
+            LoadBuyers();
+        }
     }
 }
