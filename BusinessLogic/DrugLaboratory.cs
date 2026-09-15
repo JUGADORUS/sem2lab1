@@ -50,12 +50,6 @@ namespace BusinessLogic
             _buyers.Add(new DrugBuyer(name, district, drug));
         }
 
-        private string ShowBuyer(int index)
-        {
-            return $"{_buyers[index].Name}. Любимый наркотик - {_buyers[index].FavouriteDrug}, он с района: {_buyers[index].District}";
-        }
-
-        //Здесь тоже изменила метод с индекса на самого покупателя.
         public void RemoveBuyer(DrugBuyer buyer)
         {
             _buyers.Remove(buyer);
@@ -83,28 +77,12 @@ namespace BusinessLogic
 
         public List<DrugBuyer> GetAllBuyers()
         {
-            /*Я поменяла этот метод т.к. по тз необходимо пользоваться одним методом для вывода и на WinForms
-            и в консоль. Мне необходим сам список, а не строка, поэтому при выводе в консоль используй код ниже?,
-            ну или измени как тебе удобно:
-            */
-
-            //DrugLaboratory lab = new DrugLaboratory();
-            //foreach (var buyer in lab.GetAllBuyers())
-            //{
-            //    Console.WriteLine($"{buyer.Name}. Геолокация - {buyer.District}. Любимый наркотик - {buyer.FavouriteDrug}");
-            //}
-
-            //Старый код
-            //string buyersInfo = "";
-
-            //for(int i = 0; i < _buyers.Count; i++) 
-            //{
-            //    buyersInfo += $"{_buyers[i].Name}. Геолокация - {_buyers[i].District}. Любимый наркотик - {_buyers[i].FavouriteDrug}\n"; 
-            //}
-
-            //return buyersInfo;
-
             return _buyers;
+        }
+
+        public void ChangeInformation()
+        {
+
         }
 
         private void AddBuyers()

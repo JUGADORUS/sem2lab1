@@ -18,5 +18,12 @@ namespace Model
         public string Name { get; set; }
         public string District { get; set; }
         public string FavouriteDrug { get; set; }
+
+        public void ChangeInformation(string name, string district, string favouriteDrug)
+        {
+            Name = name;
+            District = district;
+            FavouriteDrug = favouriteDrug;
+        }
     }
 }
