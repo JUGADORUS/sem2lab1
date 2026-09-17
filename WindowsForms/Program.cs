@@ -19,7 +19,13 @@ namespace WindowsForms
             Application.SetCompatibleTextRenderingDefault(false);
 
             DrugLaboratory drugLab = new DrugLaboratory();
-            Application.Run(new MainForm(drugLab));
+            StartForm startForm = new StartForm();
+
+            if(startForm.ShowDialog() == DialogResult.OK) 
+            {
+                Application.Run(new MainForm(drugLab));
+            }
+            
 
 
         }

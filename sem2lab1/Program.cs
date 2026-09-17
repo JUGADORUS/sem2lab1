@@ -159,35 +159,52 @@ namespace sem2lab1
             }
         }
 
+        //private static void GetDistrictStatistics(DrugLaboratory drugLaboratory)
+        //{
+        //    List<string> districts = drugLaboratory.GetUniqueDistrict();
+
+        //    foreach (string district in districts)
+        //    {
+        //        List<DrugBuyer> drugBuyers = drugLaboratory.GetBuyersByDistrict(district);
+        //        Dictionary<string,int> drugPopularity = new Dictionary<string,int>();
+        //        List<string> uniqueDrugs = drugLaboratory.GetUniqueDrug();
+
+        //        foreach(string drug in uniqueDrugs)
+        //        {
+        //            drugPopularity.Add(drug,0);
+        //        }
+
+        //        for (int i = 0; i < drugBuyers.Count; i++)
+        //        {
+        //            drugPopularity[drugBuyers[i].FavouriteDrug]++;
+        //        }
+
+        //        var sortedPopularity = drugPopularity.OrderByDescending(pair => pair.Value);
+        //        Console.WriteLine($"Район: {district}");
+
+        //        foreach (var pair in sortedPopularity)
+        //        {
+        //            if (pair.Value > 0)
+        //            {
+        //                Console.WriteLine($"{pair.Key}, любимый у {pair.Value} людей");
+        //            }
+        //        }
+
+        //        Console.WriteLine();
+        //    }
+        //}
+
         private static void GetDistrictStatistics(DrugLaboratory drugLaboratory)
         {
-            List<string> districts = drugLaboratory.GetUniqueDistrict();
+            Dictionary<string, Dictionary<string, int>> stats = drugLaboratory.GetDistrictStatistics();
 
-            foreach (string district in districts)
+            foreach( var district in stats) 
             {
-                List<DrugBuyer> drugBuyers = drugLaboratory.GetBuyersByDistrict(district);
-                Dictionary<string,int> drugPopularity = new Dictionary<string,int>();
-                List<string> uniqueDrugs = drugLaboratory.GetUniqueDrug();
+                Console.WriteLine($"Район: {district.Key}");
 
-                foreach(string drug in uniqueDrugs)
+                foreach(var drug in district.Value) 
                 {
-                    drugPopularity.Add(drug,0);
-                }
-
-                for (int i = 0; i < drugBuyers.Count; i++)
-                {
-                    drugPopularity[drugBuyers[i].FavouriteDrug]++;
-                }
-
-                var sortedPopularity = drugPopularity.OrderByDescending(pair => pair.Value);
-                Console.WriteLine($"Район: {district}");
-
-                foreach (var pair in sortedPopularity)
-                {
-                    if (pair.Value > 0)
-                    {
-                        Console.WriteLine($"{pair.Key}, любимый у {pair.Value} людей");
-                    }
+                    Console.WriteLine($"{drug.Key}, любимый у {drug.Value} людей.");
                 }
 
                 Console.WriteLine();

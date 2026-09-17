@@ -26,6 +26,16 @@ namespace WindowsForms
         private void MainForm_Load1(object sender, EventArgs e)
         {
             LoadBuyers();
+            LoadDrugs();
+        }
+
+        private void LoadDrugs() 
+        {
+            listBoxDrugs.Items.Clear();
+            foreach(string drug in _drugLab.GetUniqueDrug()) 
+            {
+                listBoxDrugs.Items.Add(drug);
+            }
         }
 
         private void LoadBuyers()
@@ -57,6 +67,7 @@ namespace WindowsForms
 
             _drugLab.RemoveBuyer(drugBuyer);
             LoadBuyers();
+            LoadDrugs();
         }
 
         private void button_Create_Click_1(object sender, EventArgs e)
@@ -75,6 +86,7 @@ namespace WindowsForms
             MessageBox.Show("Новый покупатель успешно добавлен!");
 
             LoadBuyers();
+            LoadDrugs();
 
             textBoxName.Clear();
             textBoxDistrict.Clear();
@@ -115,6 +127,7 @@ namespace WindowsForms
                 textBoxDistrict.Clear();
                 textBoxDrug.Clear();
                 LoadBuyers();
+                LoadDrugs();
 
                 return;
 
@@ -125,9 +138,7 @@ namespace WindowsForms
             if (result != DialogResult.Yes)
                 return;
 
-            drugBuyer.Name = name;
-            drugBuyer.District = district;
-            drugBuyer.FavouriteDrug = favouriteDrug;
+            _drugLab.ChangeInformation(name, district, favouriteDrug, drugBuyer);
 
             MessageBox.Show("Данные успешно изменены.");
 
@@ -136,6 +147,31 @@ namespace WindowsForms
             textBoxDrug.Clear();
 
             LoadBuyers();
+            LoadDrugs();
+        }
+
+        private void listBoxDrugs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxDrugs.SelectedItem == null)
+                 return; 
+
+            string drug = listBoxDrugs.SelectedItem.ToString();
+
+            DGV_Buyers.DataSource = null;
+            DGV_Buyers.DataSource = _drugLab.GetBuyersByDrug(drug);
+        }
+
+        private void button_Reset_Click(object sender, EventArgs e)
+        {
+            listBoxDrugs.ClearSelected();
+            LoadBuyers();
+            LoadDrugs() ;
+        }
+
+        private void bttnReportDistricts_Click(object sender, EventArgs e)
+        {
+            StatisticsForm statisticsForm = new StatisticsForm(_drugLab);
+            statisticsForm.ShowDialog();
         }
     }
 }

@@ -32,35 +32,22 @@ namespace BusinessLogic
             return result;
         }
 
-        public List<string> GetUniqueDistrict()
-        {
-            List<string> result = new List<string>();
+        //public List<string> GetUniqueDistrict()
+        //{
+        //    List<string> result = new List<string>();
 
-            foreach (DrugBuyer buyer in _buyers)
-            {
-                if (!result.Contains(buyer.District))
-                {
-                    result.Add(buyer.District);
-                }
-            }
+        //    foreach (DrugBuyer buyer in _buyers)
+        //    {
+        //        if (!result.Contains(buyer.District))
+        //        {
+        //            result.Add(buyer.District);
+        //        }
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        public List<DrugBuyer> GetBuyersByDistrict(string district)
-        {
-            List<DrugBuyer> result = new List<DrugBuyer>();
-
-            foreach (DrugBuyer buyer in _buyers)
-            {
-                if (buyer.District == district)
-                {
-                    result.Add(buyer);
-                }
-            }
-
-            return result;
-        }
+        
 
         public List<DrugBuyer> GetBuyersByDrug(string drug) 
         {   
@@ -77,6 +64,46 @@ namespace BusinessLogic
             return result;
         }
 
+        //public List<DrugBuyer> GetBuyersByDistrict(string district)
+        //{
+        //    List<DrugBuyer> result = new List<DrugBuyer>();
+
+        //    foreach (DrugBuyer buyer in _buyers)
+        //    {
+        //        if (buyer.District == district)
+        //        {
+        //            result.Add(buyer);
+        //        }
+        //    }
+        //    return result;
+
+        //}
+
+        public Dictionary<string, Dictionary<string, int>> GetDistrictStatistics() 
+        {
+            Dictionary<string, Dictionary<string, int>> result = new Dictionary<string, Dictionary<string, int>>();
+
+            foreach(DrugBuyer buyer in _buyers) 
+            {
+                string district = buyer.District;
+                string drug = buyer.FavouriteDrug;
+
+                if (!result.ContainsKey(district)) 
+                {
+                    result[district] = new Dictionary<string, int>();
+                }
+
+                if (!result[district].ContainsKey(drug)) 
+                {
+                    result[district][drug] = 1;
+                }
+                else 
+                {
+                    result[district][drug]++;
+                }
+            }
+            return result;
+        }
         public void AddNewBuyer(string name, string district,string drug)
         {
             _buyers.Add(new DrugBuyer(name, district, drug));

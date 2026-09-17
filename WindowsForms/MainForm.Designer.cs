@@ -38,7 +38,12 @@
             this.button_Create = new System.Windows.Forms.Button();
             this.labelForName = new System.Windows.Forms.Label();
             this.DGV_Buyers = new System.Windows.Forms.DataGridView();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBoxDrugs = new System.Windows.Forms.ListBox();
+            this.button_Reset = new System.Windows.Forms.Button();
+            this.bttnReportDistricts = new System.Windows.Forms.Button();
+            this.NameColl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DistrictColl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DrugColl = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Buyers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,6 +128,10 @@
             // DGV_Buyers
             // 
             this.DGV_Buyers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGV_Buyers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NameColl,
+            this.DistrictColl,
+            this.DrugColl});
             this.DGV_Buyers.Location = new System.Drawing.Point(279, 63);
             this.DGV_Buyers.Name = "DGV_Buyers";
             this.DGV_Buyers.RowHeadersWidth = 51;
@@ -130,21 +139,68 @@
             this.DGV_Buyers.Size = new System.Drawing.Size(490, 248);
             this.DGV_Buyers.TabIndex = 10;
             // 
-            // listBox1
+            // listBoxDrugs
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(304, 13);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(372, 36);
-            this.listBox1.TabIndex = 20;
+            this.listBoxDrugs.FormattingEnabled = true;
+            this.listBoxDrugs.ItemHeight = 16;
+            this.listBoxDrugs.Location = new System.Drawing.Point(304, 13);
+            this.listBoxDrugs.Name = "listBoxDrugs";
+            this.listBoxDrugs.Size = new System.Drawing.Size(372, 36);
+            this.listBoxDrugs.TabIndex = 20;
+            this.listBoxDrugs.SelectedIndexChanged += new System.EventHandler(this.listBoxDrugs_SelectedIndexChanged);
+            // 
+            // button_Reset
+            // 
+            this.button_Reset.Location = new System.Drawing.Point(694, 26);
+            this.button_Reset.Name = "button_Reset";
+            this.button_Reset.Size = new System.Drawing.Size(75, 23);
+            this.button_Reset.TabIndex = 21;
+            this.button_Reset.Text = "Reset";
+            this.button_Reset.UseVisualStyleBackColor = true;
+            this.button_Reset.Click += new System.EventHandler(this.button_Reset_Click);
+            // 
+            // bttnReportDistricts
+            // 
+            this.bttnReportDistricts.Location = new System.Drawing.Point(600, 364);
+            this.bttnReportDistricts.Name = "bttnReportDistricts";
+            this.bttnReportDistricts.Size = new System.Drawing.Size(169, 49);
+            this.bttnReportDistricts.TabIndex = 22;
+            this.bttnReportDistricts.Text = "Просмотреть отчет";
+            this.bttnReportDistricts.UseVisualStyleBackColor = true;
+            this.bttnReportDistricts.Click += new System.EventHandler(this.bttnReportDistricts_Click);
+            // 
+            // NameColl
+            // 
+            this.NameColl.DataPropertyName = "Name";
+            this.NameColl.HeaderText = "ФИО:";
+            this.NameColl.MinimumWidth = 6;
+            this.NameColl.Name = "NameColl";
+            this.NameColl.Width = 125;
+            // 
+            // DistrictColl
+            // 
+            this.DistrictColl.DataPropertyName = "District";
+            this.DistrictColl.HeaderText = "Район:";
+            this.DistrictColl.MinimumWidth = 6;
+            this.DistrictColl.Name = "DistrictColl";
+            this.DistrictColl.Width = 125;
+            // 
+            // DrugColl
+            // 
+            this.DrugColl.DataPropertyName = "FavouriteDrug";
+            this.DrugColl.HeaderText = "Наркотик:";
+            this.DrugColl.MinimumWidth = 6;
+            this.DrugColl.Name = "DrugColl";
+            this.DrugColl.Width = 125;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.bttnReportDistricts);
+            this.Controls.Add(this.button_Reset);
+            this.Controls.Add(this.listBoxDrugs);
             this.Controls.Add(this.textBoxDrug);
             this.Controls.Add(this.labelForDrug);
             this.Controls.Add(this.textBoxDistrict);
@@ -176,7 +232,12 @@
         private System.Windows.Forms.Button button_Create;
         private System.Windows.Forms.Label labelForName;
         private System.Windows.Forms.DataGridView DGV_Buyers;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBoxDrugs;
+        private System.Windows.Forms.Button button_Reset;
+        private System.Windows.Forms.Button bttnReportDistricts;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameColl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DistrictColl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DrugColl;
     }
 }
 
