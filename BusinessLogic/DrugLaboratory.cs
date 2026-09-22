@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Collections.Generic;
 using Model;
 
 namespace BusinessLogic
@@ -17,7 +12,9 @@ namespace BusinessLogic
             AddBuyers();
         }
 
-        public List<string> GetUniqueDrug() 
+        /// <summary> Получает список уникальных котиков </summary>
+        /// <returns> Возвращает список строк с уникальными котиками </returns>
+        public List<string> GetUniqueDrugs() 
         {
             List<string> result = new List<string>();
 
@@ -32,23 +29,9 @@ namespace BusinessLogic
             return result;
         }
 
-        //public List<string> GetUniqueDistrict()
-        //{
-        //    List<string> result = new List<string>();
-
-        //    foreach (DrugBuyer buyer in _buyers)
-        //    {
-        //        if (!result.Contains(buyer.District))
-        //        {
-        //            result.Add(buyer.District);
-        //        }
-        //    }
-
-        //    return result;
-        //}
-
-        
-
+        /// <summary> Получает список покупателей по их любимому котику </summary>
+        /// <param name="drug"> Любимый котик </param>
+        /// <returns> Возвращает список покупателей по их любимому котику </returns>
         public List<DrugBuyer> GetBuyersByDrug(string drug) 
         {   
             List<DrugBuyer> result = new List<DrugBuyer>();
@@ -64,21 +47,9 @@ namespace BusinessLogic
             return result;
         }
 
-        //public List<DrugBuyer> GetBuyersByDistrict(string district)
-        //{
-        //    List<DrugBuyer> result = new List<DrugBuyer>();
-
-        //    foreach (DrugBuyer buyer in _buyers)
-        //    {
-        //        if (buyer.District == district)
-        //        {
-        //            result.Add(buyer);
-        //        }
-        //    }
-        //    return result;
-
-        //}
-
+        /// <summary> Получает статистику по районам и их популярности </summary>
+        /// <returns> Возвращает словарь в котором ключ - район, а значение - словарь,
+        /// в котором ключ - котик, а значение - количество появлений</returns>
         public Dictionary<string, Dictionary<string, int>> GetDistrictStatistics() 
         {
             Dictionary<string, Dictionary<string, int>> result = new Dictionary<string, Dictionary<string, int>>();
@@ -102,28 +73,45 @@ namespace BusinessLogic
                     result[district][drug]++;
                 }
             }
+
             return result;
         }
+
+        /// <summary> Добавить нового покупателя </summary>
+        /// <param name="name"> Имя </param>
+        /// <param name="district"> Район </param>
+        /// <param name="drug"> Котик </param>
         public void AddNewBuyer(string name, string district,string drug)
         {
             _buyers.Add(new DrugBuyer(name, district, drug));
         }
 
+
+        /// <summary> Убирает покупателя из списка</summary>
+        /// <param name="buyer"> Клиент </param>
         public void RemoveBuyer(DrugBuyer buyer)
         {
             _buyers.Remove(buyer);
         }
 
+        /// <summary> Получает список всех покупателей </summary>
+        /// <returns> Возвращает список всех покупателей </returns>
         public List<DrugBuyer> GetAllBuyers()
         {
             return _buyers;
         }
 
+        /// <summary> Меняет информацию покупателя </summary>
+        /// <param name="name"> Имя </param>
+        /// <param name="district"> Район</param>
+        /// <param name="favouriteDrug"> Любимый котик </param>
+        /// <param name="drugBuyer"> Клиент </param>
         public void ChangeInformation(string name, string district, string favouriteDrug, DrugBuyer drugBuyer)
         {
             drugBuyer.ChangeInformation(name, district, favouriteDrug);
         }
 
+        /// <summary> Добавляет покупателей в так называемую базу данных</summary>
         private void AddBuyers()
         {
             _buyers.Add(new DrugBuyer("Слим Шейди", "Бронкс", "Кокаин"));

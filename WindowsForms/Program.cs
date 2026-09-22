@@ -9,9 +9,6 @@ namespace WindowsForms
 {
     internal static class Program
     {
-        /// <summary>
-        /// Главная точка входа для приложения.
-        /// </summary>
         [STAThread]
         static void Main()
         {
@@ -25,9 +22,6 @@ namespace WindowsForms
             {
                 Application.Run(new MainForm(drugLab));
             }
-            
-
-
         }
     }
 }

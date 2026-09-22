@@ -33,5 +33,10 @@ namespace WindowsForms
         {
             Application.Exit();
         }
+
+        private void StartForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

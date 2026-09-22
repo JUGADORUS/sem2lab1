@@ -19,6 +19,10 @@ namespace Model
         public string District { get; set; }
         public string FavouriteDrug { get; set; }
 
+        /// <summary> Меняет информацию на новую</summary>
+        /// <param name="name"> Имя </param>
+        /// <param name="district"> Район</param>
+        /// <param name="favouriteDrug"> Любимый котик </param>
         public void ChangeInformation(string name, string district, string favouriteDrug)
         {
             Name = name;

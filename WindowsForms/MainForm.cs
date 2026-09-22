@@ -32,7 +32,7 @@ namespace WindowsForms
         private void LoadDrugs() 
         {
             listBoxDrugs.Items.Clear();
-            foreach(string drug in _drugLab.GetUniqueDrug()) 
+            foreach(string drug in _drugLab.GetUniqueDrugs()) 
             {
                 listBoxDrugs.Items.Add(drug);
             }
@@ -113,10 +113,17 @@ namespace WindowsForms
             string district = textBoxDistrict.Text;
             string favouriteDrug = textBoxDrug.Text;
 
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(district) || string.IsNullOrWhiteSpace(favouriteDrug))
+            if (string.IsNullOrEmpty(name))
             {
-                MessageBox.Show("Заполните все поля перед изменением!");
-                return;
+                name = drugBuyer.Name;
+            }
+            if (string.IsNullOrEmpty(district))
+            {
+                district = drugBuyer.District;
+            }
+            if (string.IsNullOrEmpty(favouriteDrug))
+            {
+                favouriteDrug = drugBuyer.FavouriteDrug;
             }
 
             if (drugBuyer.Name == name && drugBuyer.District == district && drugBuyer.FavouriteDrug == favouriteDrug)
@@ -130,7 +137,6 @@ namespace WindowsForms
                 LoadDrugs();
 
                 return;
-
             }
 
             var result = MessageBox.Show($"Изменить данные о {drugBuyer.Name}?", "Подтверждение", MessageBoxButtons.YesNo);

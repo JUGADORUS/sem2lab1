@@ -133,19 +133,51 @@ namespace sem2lab1
 
             if (int.TryParse(Console.ReadLine(), out int index) && index >= 0 && index < drugBuyers.Count)
             {
-                Console.WriteLine($"{index} - {drugBuyers[index].Name}, район - {drugBuyers[index].District}, любимый котик - {drugBuyers[index].FavouriteDrug}\n" +
-                    $"Изменение информации торчка:\nВведите имя торчка: ");
-                string name = Console.ReadLine();
-                Console.WriteLine("Введите район торчка: ");
-                string district = Console.ReadLine();
-                Console.WriteLine("Введите любимый котик нового торчка: ");
-                string drug = Console.ReadLine();
+                string name = drugBuyers[index].Name;
+                string district = drugBuyers[index].District;
+                string drug = drugBuyers[index].FavouriteDrug;
+
+                Console.WriteLine($"{index} - {name}, район - {district}, любимый котик - {drug}\n" +
+                    $"Изменение информации торчка");
+
+                name = ChangeInformation("имя", name);
+                district = ChangeInformation("район", district);
+                drug = ChangeInformation("котик", drug);
+
 
                 drugLaboratory.ChangeInformation(name, district, drug, drugLaboratory.GetAllBuyers()[index]);
             }
             else
             {
                 Console.WriteLine("Неверный ввод");
+            }
+        }
+
+        private static string ChangeInformation(string property, string oldProperty)
+        {
+            string userInput = "";
+            string newValueOfProperty = "";
+
+            while(userInput != "y" && userInput != "n")
+            {
+                Console.WriteLine($"Вы хотите изменить {property}? y/n");
+                userInput = Console.ReadLine();
+            }
+
+            if (userInput == "y")
+            {
+                Console.WriteLine($"Введите новое значение: {property}");
+                
+                while(newValueOfProperty == "")
+                {
+                    newValueOfProperty = Console.ReadLine();
+                }
+
+                return newValueOfProperty;
+            }
+            else
+            {
+                return oldProperty;
             }
         }
 
@@ -158,41 +190,6 @@ namespace sem2lab1
                 Console.WriteLine($"{i} - {drugBuyers[i].Name}");
             }
         }
-
-        //private static void GetDistrictStatistics(DrugLaboratory drugLaboratory)
-        //{
-        //    List<string> districts = drugLaboratory.GetUniqueDistrict();
-
-        //    foreach (string district in districts)
-        //    {
-        //        List<DrugBuyer> drugBuyers = drugLaboratory.GetBuyersByDistrict(district);
-        //        Dictionary<string,int> drugPopularity = new Dictionary<string,int>();
-        //        List<string> uniqueDrugs = drugLaboratory.GetUniqueDrug();
-
-        //        foreach(string drug in uniqueDrugs)
-        //        {
-        //            drugPopularity.Add(drug,0);
-        //        }
-
-        //        for (int i = 0; i < drugBuyers.Count; i++)
-        //        {
-        //            drugPopularity[drugBuyers[i].FavouriteDrug]++;
-        //        }
-
-        //        var sortedPopularity = drugPopularity.OrderByDescending(pair => pair.Value);
-        //        Console.WriteLine($"Район: {district}");
-
-        //        foreach (var pair in sortedPopularity)
-        //        {
-        //            if (pair.Value > 0)
-        //            {
-        //                Console.WriteLine($"{pair.Key}, любимый у {pair.Value} людей");
-        //            }
-        //        }
-
-        //        Console.WriteLine();
-        //    }
-        //}
 
         private static void GetDistrictStatistics(DrugLaboratory drugLaboratory)
         {
@@ -213,7 +210,7 @@ namespace sem2lab1
 
         private static void GroupByFavouriteDrug(DrugLaboratory drugLaboratory)
         {
-            List<string> uniqueDrugs = drugLaboratory.GetUniqueDrug();
+            List<string> uniqueDrugs = drugLaboratory.GetUniqueDrugs();
 
             foreach(string drug in uniqueDrugs)
             {
