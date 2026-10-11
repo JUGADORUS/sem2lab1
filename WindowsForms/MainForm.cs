@@ -1,13 +1,6 @@
 ﻿using System;
 using BusinessLogic;
 using Model;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -15,12 +8,17 @@ namespace WindowsForms
 {
     public partial class MainForm : Form
     {
-        private DrugLaboratory _drugLab;
+        private DrugLaboratory _drugLaboratory;
 
-        public MainForm( DrugLaboratory lab)
+        public MainForm(DrugLaboratory lab)
         {
             InitializeComponent();
-            _drugLab = lab;
+            _drugLaboratory = lab;
+
+            DGV_Buyers.ReadOnly = true;
+            DGV_Buyers.AllowUserToAddRows = false;
+            DGV_Buyers.AllowUserToDeleteRows = false;
+            DGV_Buyers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void MainForm_Load1(object sender, EventArgs e)
@@ -32,7 +30,8 @@ namespace WindowsForms
         private void LoadDrugs() 
         {
             listBoxDrugs.Items.Clear();
-            foreach(string drug in _drugLab.GetUniqueDrugs()) 
+
+            foreach(string drug in _drugLaboratory.GetUniqueDrugs()) 
             {
                 listBoxDrugs.Items.Add(drug);
             }
@@ -41,7 +40,8 @@ namespace WindowsForms
         private void LoadBuyers()
         {
             DGV_Buyers.DataSource = null;
-            DGV_Buyers.DataSource = _drugLab.GetAllBuyers();
+            DGV_Buyers.DataSource = _drugLaboratory.GetAllBuyers();
+            listBoxDrugs.ClearSelected();
         }
 
         private void button_Delete_Click_1(object sender, EventArgs e)
@@ -65,7 +65,7 @@ namespace WindowsForms
             if (result != DialogResult.Yes)
                 return;
 
-            _drugLab.RemoveBuyer(drugBuyer);
+            _drugLaboratory.RemoveBuyer(drugBuyer.Id);
             LoadBuyers();
             LoadDrugs();
         }
@@ -82,7 +82,7 @@ namespace WindowsForms
                 return;
             }
 
-            _drugLab.AddNewBuyer(name, district, favouriteDrug);
+            _drugLaboratory.AddNewBuyer(name, district, favouriteDrug);
             MessageBox.Show("Новый покупатель успешно добавлен!");
 
             LoadBuyers();
@@ -109,22 +109,14 @@ namespace WindowsForms
                 return;
             }
 
+            int id = drugBuyer.Id;
             string name = textBoxName.Text;
             string district = textBoxDistrict.Text;
             string favouriteDrug = textBoxDrug.Text;
 
-            if (string.IsNullOrEmpty(name))
-            {
-                name = drugBuyer.Name;
-            }
-            if (string.IsNullOrEmpty(district))
-            {
-                district = drugBuyer.District;
-            }
-            if (string.IsNullOrEmpty(favouriteDrug))
-            {
-                favouriteDrug = drugBuyer.FavouriteDrug;
-            }
+            if (string.IsNullOrWhiteSpace(name)) name = drugBuyer.Name;
+            if (string.IsNullOrWhiteSpace(district)) district = drugBuyer.District;
+            if (string.IsNullOrWhiteSpace(favouriteDrug)) favouriteDrug = drugBuyer.FavouriteDrug;
 
             if (drugBuyer.Name == name && drugBuyer.District == district && drugBuyer.FavouriteDrug == favouriteDrug)
             {
@@ -144,7 +136,12 @@ namespace WindowsForms
             if (result != DialogResult.Yes)
                 return;
 
-            _drugLab.ChangeInformation(name, district, favouriteDrug, drugBuyer);
+            if (drugBuyer.Name != name)
+                _drugLaboratory.ChangeName(name, id);
+            if (drugBuyer.District != district)
+                _drugLaboratory.ChangeDistrict(district, id);
+            if (drugBuyer.FavouriteDrug != favouriteDrug)
+                _drugLaboratory.ChangeFavouriteDrug(favouriteDrug, id);
 
             MessageBox.Show("Данные успешно изменены.");
 
@@ -164,7 +161,7 @@ namespace WindowsForms
             string drug = listBoxDrugs.SelectedItem.ToString();
 
             DGV_Buyers.DataSource = null;
-            DGV_Buyers.DataSource = _drugLab.GetBuyersByDrug(drug);
+            DGV_Buyers.DataSource = _drugLaboratory.GetBuyersByDrug(drug);
         }
 
         private void button_Reset_Click(object sender, EventArgs e)
@@ -176,7 +173,7 @@ namespace WindowsForms
 
         private void bttnReportDistricts_Click(object sender, EventArgs e)
         {
-            StatisticsForm statisticsForm = new StatisticsForm(_drugLab);
+            StatisticsForm statisticsForm = new StatisticsForm(_drugLaboratory);
             statisticsForm.ShowDialog();
         }
     }

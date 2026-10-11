@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BusinessLogic;
 using Model;
 
@@ -91,15 +88,19 @@ namespace sem2lab1
 
         private static void RemoveClient(DrugLaboratory drugLaboratory)
         {
-            List<DrugBuyer> drugBuyers = drugLaboratory.GetAllBuyers();
-            Console.WriteLine("Кого вы хотите ликвидировать? Введите индекс: ");
-
+            Console.WriteLine("Кого вы хотите ликвидировать? Введите Id: ");
             ShowAllClients(drugLaboratory);
 
-            if(int.TryParse(Console.ReadLine(), out int index) && index >= 0 && index < drugBuyers.Count)
+            if (int.TryParse(Console.ReadLine(), out int id))
             {
-                Console.WriteLine($"{drugBuyers[index].Name} успешно ликвидирован");
-                drugLaboratory.RemoveBuyer(drugLaboratory.GetAllBuyers()[index]);
+                if (drugLaboratory.RemoveBuyer(id))
+                {
+                    Console.WriteLine("Клиент успешно ликвидирован");
+                }
+                else
+                {
+                    Console.WriteLine("Клиент с таким Id не найден");
+                }
             }
             else
             {
@@ -109,14 +110,21 @@ namespace sem2lab1
 
         private static void ReadClientInfo(DrugLaboratory drugLaboratory)
         {
-            List<DrugBuyer> drugBuyers = drugLaboratory.GetAllBuyers();
-            Console.WriteLine("Кого вы хотите проверить с глазом бога? Введите индекс: ");
-
+            Console.WriteLine("Кого вы хотите проверить с глазом бога? Введите Id: ");
             ShowAllClients(drugLaboratory);
 
-            if (int.TryParse(Console.ReadLine(), out int index) && index >= 0 && index < drugBuyers.Count)
+            if (int.TryParse(Console.ReadLine(), out int id))
             {
-                Console.WriteLine($"{index} - {drugBuyers[index].Name}, район - {drugBuyers[index].District}, любимый котик - {drugBuyers[index].FavouriteDrug}");
+                DrugBuyer buyer = drugLaboratory.FindBuyerById(id);
+
+                if (buyer != null)
+                {
+                    Console.WriteLine($"ID:{buyer.Id} - {buyer.Name}, район - {buyer.District}, любимый котик - {buyer.FavouriteDrug}");
+                }
+                else
+                {
+                    Console.WriteLine("Клиент с таким Id не найден");
+                }
             }
             else
             {
@@ -126,26 +134,44 @@ namespace sem2lab1
 
         private static void ChangeClientInformation(DrugLaboratory drugLaboratory)
         {
-            List<DrugBuyer> drugBuyers = drugLaboratory.GetAllBuyers();
-            Console.WriteLine("У кого вы хотите изменить информацию? Введите индекс: ");
+            Console.WriteLine("У кого вы хотите изменить информацию? Введите ID: ");
 
             ShowAllClients(drugLaboratory);
 
-            if (int.TryParse(Console.ReadLine(), out int index) && index >= 0 && index < drugBuyers.Count)
+            if (int.TryParse(Console.ReadLine(), out int id))
             {
-                string name = drugBuyers[index].Name;
-                string district = drugBuyers[index].District;
-                string drug = drugBuyers[index].FavouriteDrug;
+                DrugBuyer drugBuyer = drugLaboratory.FindBuyerById(id);
 
-                Console.WriteLine($"{index} - {name}, район - {district}, любимый котик - {drug}\n" +
+                if (drugBuyer == null)
+                {
+                    Console.WriteLine("Клиент с таким Id не найден");
+                    return;
+                }
+
+                string name = drugBuyer.Name;
+                string district = drugBuyer.District;
+                string drug = drugBuyer.FavouriteDrug;
+
+                Console.WriteLine($"ID:{id} - {name}, район - {district}, любимый котик - {drug}\n" +
                     $"Изменение информации торчка");
 
-                name = ChangeInformation("имя", name);
-                district = ChangeInformation("район", district);
-                drug = ChangeInformation("котик", drug);
+                string newName = GetProperty("имя", name);
+                if (newName != name)
+                {
+                    drugLaboratory.ChangeName(newName, id);
+                }
 
+                string newDistrict = GetProperty("район", district);
+                if (newDistrict != district)
+                {
+                    drugLaboratory.ChangeDistrict(newDistrict, id);
+                }
 
-                drugLaboratory.ChangeInformation(name, district, drug, drugLaboratory.GetAllBuyers()[index]);
+                string newDrug = GetProperty("котик", drug);
+                if (newDrug != drug)
+                {
+                    drugLaboratory.ChangeFavouriteDrug(newDrug, id);
+                }
             }
             else
             {
@@ -153,7 +179,7 @@ namespace sem2lab1
             }
         }
 
-        private static string ChangeInformation(string property, string oldProperty)
+        private static string GetProperty(string property, string oldProperty)
         {
             string userInput = "";
             string newValueOfProperty = "";
@@ -185,9 +211,9 @@ namespace sem2lab1
         {
             List<DrugBuyer> drugBuyers = drugLaboratory.GetAllBuyers();
 
-            for (int i = 0; i < drugBuyers.Count; i++)
+            foreach (DrugBuyer buyer in drugBuyers)
             {
-                Console.WriteLine($"{i} - {drugBuyers[i].Name}");
+                Console.WriteLine($"ID:{buyer.Id} - {buyer.Name}");
             }
         }
 

@@ -1,32 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model
 {   
     public class DrugBuyer
     {
-        public DrugBuyer(string name, string district, string favouriteDrug)
+        public DrugBuyer(int id, string name, string district, string favouriteDrug)
         {
+            Id = id;
             Name = name;
             District = district;
             FavouriteDrug = favouriteDrug;
         }
 
-        public string Name { get; set; }
-        public string District { get; set; }
-        public string FavouriteDrug { get; set; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public string District { get; private set; }
+        public string FavouriteDrug { get; private set; }
 
-        /// <summary> Меняет информацию на новую</summary>
+        /// <summary> Меняет имя на новое</summary>
         /// <param name="name"> Имя </param>
-        /// <param name="district"> Район</param>
-        /// <param name="favouriteDrug"> Любимый котик </param>
-        public void ChangeInformation(string name, string district, string favouriteDrug)
+        public void ChangeName(string name)
         {
             Name = name;
+        }
+
+        /// <summary> Меняет район на новый</summary>
+        /// <param name="district"> Район</param>
+        public void ChangeDistrict(string district)
+        {
             District = district;
+        }
+
+        /// <summary> Меняет любимый наркотик на новый</summary>
+        /// <param name="favouriteDrug"> Любимый котик </param>
+        public void ChangeFavouriteDrug(string favouriteDrug)
+        {
             FavouriteDrug = favouriteDrug;
         }
     }
