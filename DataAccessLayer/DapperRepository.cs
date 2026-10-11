@@ -11,7 +11,7 @@ namespace DataAccessLayer
     {
         public void Add(string name, string district, string drug)
         {
-
+            //ИМОРЛАРЛОЫРПЛОЫВРПОЛЫВ
         }
 
         public void Delete(int Id)
