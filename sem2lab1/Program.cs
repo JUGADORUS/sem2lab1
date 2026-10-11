@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLogic;
-using Model;
 
 namespace sem2lab1
 {
