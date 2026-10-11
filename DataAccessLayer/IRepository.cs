@@ -9,6 +9,7 @@ namespace DataAccessLayer
 {
     internal interface IRepository<T> where T : IDomainObject
     {
+        //
         void Add(string name, string district, string drug);
         void Delete(int id);
         void ReadAll();
