@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic
+namespace DataAccessLayer
 {
     public interface IDomainObject
     {
-        int Id { get; }
+        int Id { get; set; }
     }
 }

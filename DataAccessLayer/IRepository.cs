@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BusinessLogic;
 
 namespace DataAccessLayer
 {
-    internal interface IRepository<T> where T : IDomainObject
+    public interface IRepository<T> where T : IDomainObject
     {
-        void Add(string name, string district, string drug);
+        void Add(T entity);
         void Delete(int id);
         List<T> ReadAll();
-        T ReadByID(int id);
+        T ReadById(int id);
         void Update(T newObject);
     }
 }

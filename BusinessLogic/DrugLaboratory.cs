@@ -1,11 +1,12 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
+using DataAccessLayer;
 
 namespace BusinessLogic
 {
     public class DrugLaboratory
     {
+        IRepository<DrugBuyer> repository = new DapperRepository<DrugBuyer>();
         private List<DrugBuyer> _buyers = new List<DrugBuyer>();
         private static readonly Random _random = new Random();
 
@@ -83,10 +84,20 @@ namespace BusinessLogic
         /// <param name="name"> Имя</param>
         /// <param name="district"> Район</param>
         /// <param name="drug"> Котик</param>
-        public void AddNewBuyer(string name, string district,string drug)
+        public void AddNewBuyer(string name, string district, string drug)
         {
             int id = GenerateUniqueId();
-            _buyers.Add(new DrugBuyer(id, name, district, drug));
+
+            DrugBuyer drugBuyer = new DrugBuyer()
+            {
+                Id = id,
+                Name = name,
+                District = district,
+                FavouriteDrug = drug
+            };
+
+            repository.Add(drugBuyer);
+            _buyers.Add(drugBuyer);
         }
 
         /// <summary> Находит покупателя по ID </summary>

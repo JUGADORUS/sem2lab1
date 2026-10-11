@@ -1,4 +1,5 @@
 ﻿using System;
+using DataAccessLayer;
 
 namespace BusinessLogic
 {
@@ -12,10 +13,14 @@ namespace BusinessLogic
             FavouriteDrug = favouriteDrug;
         }
 
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public string District { get; private set; }
-        public string FavouriteDrug { get; private set; }
+        public DrugBuyer()
+        {
+        }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string District { get; set; }
+        public string FavouriteDrug { get; set; }
 
         /// <summary> Меняет имя на новое</summary>
         /// <param name="name"> Имя </param>

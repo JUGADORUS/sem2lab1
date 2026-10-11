@@ -81,14 +81,9 @@
     <Compile Include="DapperRepository.cs" />
     <Compile Include="DBContext.cs" />
     <Compile Include="EntityRepository.cs" />
+    <Compile Include="IDomainObject.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
-      <Project>{89ec5bee-ca2b-40e2-a9fa-b35fbd424d3d}</Project>
-      <Name>BusinessLogic</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
