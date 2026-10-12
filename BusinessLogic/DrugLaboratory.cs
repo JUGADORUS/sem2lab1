@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataAccessLayer;
 
-namespace BusinessLogic
+namespace Model
 {
     public class DrugLaboratory
     {
-        IRepository<DrugBuyer> repository = new DapperRepository<DrugBuyer>();
-        private List<DrugBuyer> _buyers = new List<DrugBuyer>();
+        private readonly IRepository<DrugBuyer> _repository;
         private static readonly Random _random = new Random();
 
-        public DrugLaboratory() 
+        public DrugLaboratory(IRepository<DrugBuyer> repository) 
         {
-            AddBuyers();
+            _repository = repository;
+
+            SeedDatabase();
         }
 
         /// <summary> Получает список уникальных котиков </summary>
@@ -21,7 +21,7 @@ namespace BusinessLogic
         {
             List<string> result = new List<string>();
 
-            foreach (DrugBuyer buyer in _buyers) 
+            foreach (DrugBuyer buyer in _repository.ReadAll()) 
             {
                 if (!result.Contains(buyer.FavouriteDrug)) 
                 {
@@ -39,7 +39,7 @@ namespace BusinessLogic
         {   
             List<DrugBuyer> result = new List<DrugBuyer>();
 
-            foreach(DrugBuyer buyer in _buyers) 
+            foreach(DrugBuyer buyer in _repository.ReadAll()) 
             {
                 if (buyer.FavouriteDrug == drug) 
                 {
@@ -57,7 +57,7 @@ namespace BusinessLogic
         {
             Dictionary<string, Dictionary<string, int>> result = new Dictionary<string, Dictionary<string, int>>();
 
-            foreach(DrugBuyer buyer in _buyers) 
+            foreach(DrugBuyer buyer in _repository.ReadAll()) 
             {
                 string district = buyer.District;
                 string drug = buyer.FavouriteDrug;
@@ -96,8 +96,7 @@ namespace BusinessLogic
                 FavouriteDrug = drug
             };
 
-            repository.Add(drugBuyer);
-            _buyers.Add(drugBuyer);
+            _repository.Add(drugBuyer);
         }
 
         /// <summary> Находит покупателя по ID </summary>
@@ -105,26 +104,19 @@ namespace BusinessLogic
         /// <returns> Возвращает покупателя с нужным ID </returns>
         public DrugBuyer FindBuyerById(int id)
         {
-            foreach (DrugBuyer buyer in _buyers)
-            {
-                if (buyer.Id == id)
-                    return buyer;
-            }
-
-            return null;
+            return _repository.ReadById(id);
         }
-
 
         /// <summary> Убирает покупателя из списка по Id </summary>
         /// <param name="id"> Id покупателя </param>
         /// <returns> true, если покупатель найден и удалён; иначе false </returns>
         public bool RemoveBuyer(int id)
         {
-            DrugBuyer buyer = FindBuyerById(id);
+            DrugBuyer buyer = _repository.ReadById(id);
             if (buyer == null)
                 return false;
 
-            _buyers.Remove(buyer);
+            _repository.Delete(id);
             return true;
         }
 
@@ -134,7 +126,7 @@ namespace BusinessLogic
         {
             List<DrugBuyer> tempList = new List<DrugBuyer>();
 
-            foreach(DrugBuyer drugBuyer in _buyers)
+            foreach(DrugBuyer drugBuyer in _repository.ReadAll())
             {
                 tempList.Add(drugBuyer);
             }
@@ -149,7 +141,10 @@ namespace BusinessLogic
         {
             DrugBuyer buyer = FindBuyerById(id);
             if (buyer != null)
+            {
                 buyer.ChangeName(name);
+                _repository.Update(buyer);
+            }
         }
 
         //// <summary> Меняет район на новый</summary>
@@ -159,7 +154,10 @@ namespace BusinessLogic
         {
             DrugBuyer buyer = FindBuyerById(id);
             if (buyer != null)
+            {
                 buyer.ChangeDistrict(district);
+                _repository.Update(buyer);
+            }
         }
 
         /// <summary> Меняет любимый наркотик на новый</summary>
@@ -169,7 +167,10 @@ namespace BusinessLogic
         {
             DrugBuyer buyer = FindBuyerById(id);
             if (buyer != null)
+            {
                 buyer.ChangeFavouriteDrug(favouriteDrug);
+                _repository.Update(buyer);
+            }
         }
 
         private int GenerateUniqueId()
@@ -185,29 +186,26 @@ namespace BusinessLogic
             return newId;
         }
 
-        /// <summary> Добавляет покупателей в так называемую базу данных</summary>
-        private void AddBuyers()
+        private void SeedDatabase()
         {
-            _buyers.Add(new DrugBuyer(48213, "Слим Шейди", "Бронкс", "Кокаин"));
-            _buyers.Add(new DrugBuyer(91045, "Крэк-Кит", "Бруклин", "Кокаин"));
-            _buyers.Add(new DrugBuyer(30117, "Ломанный Зуб", "Бронкс", "Мет"));
-            _buyers.Add(new DrugBuyer(73642, "Химозный Рон", "Беверли Хиллз", "Фентанил"));
-            _buyers.Add(new DrugBuyer(15890, "Мет-Молли", "Бронкс", "Мет"));
-            _buyers.Add(new DrugBuyer(62408, "Фентанил Фред", "Беверли Хиллз", "Фентанил"));
-            _buyers.Add(new DrugBuyer(87931, "Стеклянный Глаз", "Бруклин", "Мет"));
-            _buyers.Add(new DrugBuyer(40576, "Пузырь", "Бронкс", "Кокаин"));
-            _buyers.Add(new DrugBuyer(29384, "Твич", "Бруклин", "Фентанил"));
-            _buyers.Add(new DrugBuyer(56712, "Белый Кролик", "Бруклин", "Кокаин"));
-            _buyers.Add(new DrugBuyer(74059, "Железный Нос", "Беверли Хиллз", "Мет"));
-            _buyers.Add(new DrugBuyer(18627, "Пепел", "Бронкс", "Фентанил"));
-            _buyers.Add(new DrugBuyer(93250, "Кислый Стив", "Бруклин", "Экстази"));
-            _buyers.Add(new DrugBuyer(36148, "Мармеладный Джо", "Бруклин", "Экстази"));
-            _buyers.Add(new DrugBuyer(50873, "Танцор Дэн", "Бруклин", "Экстази"));
-            _buyers.Add(new DrugBuyer(21495, "Бледный Пит", "Бруклин", "Героин"));
-            _buyers.Add(new DrugBuyer(67381, "Джазмен Лу", "Гарлем", "Трава"));
-            _buyers.Add(new DrugBuyer(84026, "Дымный Бигги", "Гарлем", "Трава"));
-            _buyers.Add(new DrugBuyer(12964, "Глухой Снуп", "Гарлем", "Трава"));
-            _buyers.Add(new DrugBuyer(49537, "Лысый Тупак", "Гарлем", "Трава"));
+            List<DrugBuyer> initialBuyers = new List<DrugBuyer>
+            {
+                new DrugBuyer { Id = 0, Name = "Слим Шейди", District = "Бронкс", FavouriteDrug = "Кокаин" },
+                new DrugBuyer { Id = 0, Name = "Крэк-Кит", District = "Бруклин", FavouriteDrug = "Кокаин" },
+                new DrugBuyer { Id = 0, Name = "Ломанный Зуб", District = "Бронкс", FavouriteDrug = "Мет" },
+                new DrugBuyer { Id = 0, Name = "Химозный Рон", District = "Беверли Хиллз", FavouriteDrug = "Фентанил" },
+                new DrugBuyer { Id = 0, Name = "Мет-Молли", District = "Бронкс", FavouriteDrug = "Мет" },
+                new DrugBuyer { Id = 0, Name = "Фентанил Фред", District = "Беверли Хиллз", FavouriteDrug = "Фентанил" },
+                new DrugBuyer { Id = 0, Name = "Стеклянный Глаз", District = "Бруклин", FavouriteDrug = "Мет" },
+                new DrugBuyer { Id = 0, Name = "Пузырь", District = "Бронкс", FavouriteDrug = "Кокаин" },
+                new DrugBuyer { Id = 0, Name = "Твич", District = "Бруклин", FavouriteDrug = "Фентанил" },
+                new DrugBuyer { Id = 0, Name = "Белый Кролик", District = "Бруклин", FavouriteDrug = "Кокаин" }
+            };
+
+            foreach (var buyer in initialBuyers)
+            {
+                _repository.Add(buyer);
+            }
         }
     }
 }

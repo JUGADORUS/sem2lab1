@@ -43,13 +43,12 @@
   <ItemGroup>
     <Compile Include="DrugBuyer.cs" />
     <Compile Include="DrugLaboratory.cs" />
+    <Compile Include="IDomainObject.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{67a3bca9-9e56-4b2b-82f3-f99f49a8e5bc}</Project>
-      <Name>DataAccessLayer</Name>
-    </ProjectReference>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

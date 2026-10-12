@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using BusinessLogic;
+using DataAccessLayer;
+using Model;
 
 namespace sem2lab1
 {
@@ -16,7 +17,8 @@ namespace sem2lab1
             const string GroupByFavouriteDrugCommand = "6";
             const string ShowDistrictStatisticsCommand = "7";
 
-            DrugLaboratory drugLaboratory = new DrugLaboratory();
+            var repository = new DataAccessLayer.DapperRepository<DrugBuyer>();
+            DrugLaboratory drugLaboratory = new DrugLaboratory(repository);
 
             while (true)
             {

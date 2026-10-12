@@ -98,9 +98,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+    <ProjectReference Include="..\BusinessLogic\Model.csproj">
       <Project>{89ec5bee-ca2b-40e2-a9fa-b35fbd424d3d}</Project>
-      <Name>BusinessLogic</Name>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{67a3bca9-9e56-4b2b-82f3-f99f49a8e5bc}</Project>
+      <Name>DataAccessLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

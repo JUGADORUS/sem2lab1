@@ -1,7 +1,6 @@
 ﻿using System;
-using DataAccessLayer;
 
-namespace BusinessLogic
+namespace Model
 {
     public class DrugBuyer : IDomainObject
     {

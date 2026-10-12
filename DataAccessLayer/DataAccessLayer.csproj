@@ -81,8 +81,6 @@
     <Compile Include="DapperRepository.cs" />
     <Compile Include="DBContext.cs" />
     <Compile Include="EntityRepository.cs" />
-    <Compile Include="IDomainObject.cs" />
-    <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +107,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\Model.csproj">
+      <Project>{89ec5bee-ca2b-40e2-a9fa-b35fbd424d3d}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

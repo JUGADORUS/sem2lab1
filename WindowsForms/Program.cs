@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using BusinessLogic;
+using Model;
+using DataAccessLayer;
 
 namespace WindowsForms
 {
@@ -12,7 +13,8 @@ namespace WindowsForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            DrugLaboratory drugLab = new DrugLaboratory();
+            var repository = new DataAccessLayer.DapperRepository<DrugBuyer>();
+            DrugLaboratory drugLab = new DrugLaboratory(repository);
             StartForm startForm = new StartForm();
 
             if(startForm.ShowDialog() == DialogResult.OK) 
