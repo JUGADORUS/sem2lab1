@@ -171,6 +171,7 @@ namespace Model
             }
         }
 
+        /// <summary> Заолняет базу данных данными, если она пустая</summary>
         private void SeedDatabase()
         {
             if (_repository.ReadAll().Count > 0)
