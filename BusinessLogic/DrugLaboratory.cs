@@ -86,11 +86,9 @@ namespace Model
         /// <param name="drug"> Котик</param>
         public void AddNewBuyer(string name, string district, string drug)
         {
-            int id = GenerateUniqueId();
-
             DrugBuyer drugBuyer = new DrugBuyer()
             {
-                Id = id,
+                Id = 0,
                 Name = name,
                 District = district,
                 FavouriteDrug = drug
@@ -173,21 +171,13 @@ namespace Model
             }
         }
 
-        private int GenerateUniqueId()
-        {
-            int newId;
-
-            do
-            {
-                newId = _random.Next(10000, 100000);
-            }
-            while (FindBuyerById(newId) != null);
-
-            return newId;
-        }
-
         private void SeedDatabase()
         {
+            if (_repository.ReadAll().Count > 0)
+            {
+                return;
+            }
+
             List<DrugBuyer> initialBuyers = new List<DrugBuyer>
             {
                 new DrugBuyer { Id = 0, Name = "Слим Шейди", District = "Бронкс", FavouriteDrug = "Кокаин" },

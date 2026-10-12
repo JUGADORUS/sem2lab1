@@ -4,17 +4,7 @@ namespace Model
 {
     public class DrugBuyer : IDomainObject
     {
-        public DrugBuyer(int id, string name, string district, string favouriteDrug)
-        {
-            Id = id;
-            Name = name;
-            District = district;
-            FavouriteDrug = favouriteDrug;
-        }
-
-        public DrugBuyer()
-        {
-        }
+        public DrugBuyer(){}
 
         public int Id { get; set; }
         public string Name { get; set; }
