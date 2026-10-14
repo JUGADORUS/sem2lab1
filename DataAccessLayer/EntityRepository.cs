@@ -58,6 +58,5 @@ namespace DataAccessLayer
         {
             return _context.Set<T>().Find(id);
         }
-
     }
 }

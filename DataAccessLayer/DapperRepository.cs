@@ -14,7 +14,6 @@ namespace DataAccessLayer
             "Security=True";
         IDbConnection db = new SqlConnection(connectionString);
 
-
         public void Add(T entity)
         {
             string sqlQuery = "INSERT INTO DrugBuyers (Name, District, FavouriteDrug) " +
@@ -25,14 +24,12 @@ namespace DataAccessLayer
             entity.Id = newId;
         }
 
-
         public void Delete(int id)
         {
             string sqlQuery = "DELETE FROM DrugBuyers WHERE Id = @Id";
 
             db.Execute(sqlQuery, new { Id = id });
         }
-
 
         public List<T> ReadAll()
         {
