@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36221.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sem2lab1", "sem2lab1\sem2lab1.csproj", "{55CA631C-1D0E-4434-93D6-D6D31ADE64D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "sem2lab1\Console.csproj", "{55CA631C-1D0E-4434-93D6-D6D31ADE64D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "BusinessLogic\Model.csproj", "{89EC5BEE-CA2B-40E2-A9FA-B35FBD424D3D}"
 EndProject

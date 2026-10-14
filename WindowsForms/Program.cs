@@ -1,7 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using DataAccessLayer;
 using Model;
-using DataAccessLayer;
+using System;
+using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 
 namespace WindowsForms
 {
@@ -13,8 +14,22 @@ namespace WindowsForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var repository = new DataAccessLayer.DapperRepository<DrugBuyer>();
-            DrugLaboratory drugLab = new DrugLaboratory(repository);
+            const bool isEntityFramework = false;
+            DrugLaboratory drugLab;
+
+            if (isEntityFramework)
+            {
+                var dbContext = new DataAccessLayer.DBContext();
+                var repository = new DataAccessLayer.EntityRepository<DrugBuyer>(dbContext);
+                drugLab = new DrugLaboratory(repository);
+            }
+            else
+            {
+                var repository = new DataAccessLayer.DapperRepository<DrugBuyer>();
+                drugLab = new DrugLaboratory(repository);
+            }
+
+            
             StartForm startForm = new StartForm();
 
             if(startForm.ShowDialog() == DialogResult.OK) 
