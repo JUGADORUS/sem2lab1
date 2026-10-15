@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Model
 {
     public class DrugLaboratory
     {
         private readonly IRepository<DrugBuyer> _repository;
-        private static readonly Random _random = new Random();
 
         public DrugLaboratory(IRepository<DrugBuyer> repository) 
         {
@@ -179,7 +177,7 @@ namespace Model
                 return;
             }
 
-            List<DrugBuyer> initialBuyers = new List<DrugBuyer>
+            List<DrugBuyer> buyers = new List<DrugBuyer>
             {
                 new DrugBuyer { Id = 0, Name = "Слим Шейди", District = "Бронкс", FavouriteDrug = "Кокаин" },
                 new DrugBuyer { Id = 0, Name = "Крэк-Кит", District = "Бруклин", FavouriteDrug = "Кокаин" },
@@ -193,7 +191,7 @@ namespace Model
                 new DrugBuyer { Id = 0, Name = "Белый Кролик", District = "Бруклин", FavouriteDrug = "Кокаин" }
             };
 
-            foreach (var buyer in initialBuyers)
+            foreach (var buyer in buyers)
             {
                 _repository.Add(buyer);
             }

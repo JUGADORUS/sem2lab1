@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataAccessLayer;
 using Model;
 
 namespace sem2lab1
@@ -22,8 +21,7 @@ namespace sem2lab1
 
             if (isEntityFramework) 
             {
-                var dbContext = new DataAccessLayer.DBContext();
-                var repository = new DataAccessLayer.EntityRepository<DrugBuyer>(dbContext);
+                var repository = new DataAccessLayer.EntityRepository<DrugBuyer>();
                 drugLaboratory = new DrugLaboratory(repository);
             }
             else 

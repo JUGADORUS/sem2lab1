@@ -1,7 +1,5 @@
-﻿using DataAccessLayer;
-using Model;
+﻿using Model;
 using System;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace WindowsForms

@@ -5,58 +5,63 @@ namespace DataAccessLayer
 {
     public class EntityRepository<T>: IRepository<T> where T : class, IDomainObject, new()
     {
-        private readonly DBContext _context;
-
-        /// <summary> Создает новый экземпляр репозитория </summary>
-        /// <param name="context"> Контекст БД EF, используется для доступа к данным </param>
-        public EntityRepository(DBContext context)
-        {
-            _context = context;
-        }
-
         /// <summary> Добавляет новую сущность в БД </summary>
         /// <param name="entity"> Объект сущности </param>
         public void Add(T entity) 
         {
-            _context.Set<T>().Add(entity);
-            _context.SaveChanges();
+            using (DBContext context = new DBContext())
+            {
+                context.Set<T>().Add(entity);
+                context.SaveChanges();
+            }
         }
 
         /// <summary> Обновляет информацию о сущетсвующем объекте в БД </summary>
         /// <param name="newObject"> Объект сущности с обновленными данными </param>
         public void Update(T newObject) 
         {
-            _context.Entry(newObject).State = System.Data.Entity.EntityState.Modified;
-            _context.SaveChanges();
-
+            using (DBContext context = new DBContext())
+            {
+                context.Entry(newObject).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
         }
 
-        /// <summary> Уничтожает объект в БД по номеру ID </summary>
+        /// <summary> Уничтожает объект в БД по ID </summary>
         /// <param name="id"> Уникальный идентификатор объекта </param>
         public void Delete(int id) 
         {
-            var entity = _context.Set<T>().Find(id);
-
-            if (entity != null)
+            using (DBContext context = new DBContext())
             {
-                _context.Set<T>().Remove(entity);
-                _context.SaveChanges();
+                var entity = context.Set<T>().Find(id);
+
+                if (entity != null)
+                {
+                    context.Set<T>().Remove(entity);
+                    context.SaveChanges();
+                }
             }
         }
 
         /// <summary> Получает список всех объектов в БД </summary>
-        /// <returns> Возвращает список покупателей всех покупателей из БД </returns>
+        /// <returns> Возвращает список всех объектов из БД </returns>
         public List<T> ReadAll() 
         {
-            return new List<T>(_context.Set<T>());
+            using (DBContext context = new DBContext())
+            {
+                return new List<T>(context.Set<T>());
+            }
         }
 
-        /// <summary> Получает конкретного покупателя из БД по ID </summary>
+        /// <summary> Получает конкретный объект из БД по ID </summary>
         /// <param name="id"> Уникальный идентификатор объекта </param>
-        /// <returns> Возвращает покупателя с нужным ID </returns>
+        /// <returns> Возвращает объект с нужным ID </returns>
         public T ReadById(int id) 
         {
-            return _context.Set<T>().Find(id);
+            using (DBContext context = new DBContext())
+            {
+                return context.Set<T>().Find(id);
+            }
         }
     }
 }
