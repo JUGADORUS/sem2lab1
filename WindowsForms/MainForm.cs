@@ -1,6 +1,7 @@
 ﻿using System;
 using Model;
 using System.Windows.Forms;
+using BusinesssLogic;
 
 
 namespace WindowsForms

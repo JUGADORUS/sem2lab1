@@ -2,6 +2,7 @@
 using Model;
 using System;
 using System.Windows.Forms;
+using BusinesssLogic;
 
 namespace WindowsForms
 {
@@ -13,8 +14,9 @@ namespace WindowsForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            const bool isEntityFramework = true;
+            const bool isEntityFramework = false;
             DrugLaboratory drugLab;
+
 
             if (isEntityFramework)
             {

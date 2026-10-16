@@ -42,9 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrugBuyer.cs" />
-    <Compile Include="DrugLaboratory.cs" />
     <Compile Include="IDomainObject.cs" />
-    <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

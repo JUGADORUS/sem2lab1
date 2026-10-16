@@ -1,6 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BusinesssLogic;
+using DataAccessLayer;
 using Model;
+using System;
+using System.Collections.Generic;
 
 namespace sem2lab1
 {
@@ -21,68 +23,68 @@ namespace sem2lab1
 
             if (isEntityFramework) 
             {
-                var repository = new DataAccessLayer.EntityRepository<DrugBuyer>();
+                EntityRepository<DrugBuyer> repository = new DataAccessLayer.EntityRepository<DrugBuyer>();
                 drugLaboratory = new DrugLaboratory(repository);
             }
             else 
             {
-                var repository = new DataAccessLayer.DapperRepository<DrugBuyer>();
+                DapperRepository<DrugBuyer> repository = new DataAccessLayer.DapperRepository<DrugBuyer>();
                 drugLaboratory = new DrugLaboratory(repository);
             }
 
-                while (true)
+            while (true)
+            {
+                Continue();
+                Console.Clear();
+
+                Console.WriteLine($"Что вы хотите сделать?\n" +
+                    $"{AddNewBuyerCommand} - Добавить нового клиента в базу\n" +
+                    $"{RemoveClientCommand} - Ликвидировать клиента\n" +
+                    $"{ReadClientInfoCommand} - Пробить клиента по глазу бога\n" +
+                    $"{ChangeClientInfoCommand} - Внушить клиенту новую информацию\n" +
+                    $"{ShowAllClientsInfoCommand} - Показать информацию о всех клиентах\n" +
+                    $"{GroupByFavouriteDrugCommand} - Группировать по любимому котику\n" +
+                    $"{ShowDistrictStatisticsCommand} - Подвести статистику по районам\n");
+
+                string UserInput = Console.ReadLine();
+
+                Console.Clear();
+
+                switch (UserInput)
                 {
-                    Continue();
-                    Console.Clear();
+                    case AddNewBuyerCommand:
+                        AddNewClient(drugLaboratory);
+                        break;
 
-                    Console.WriteLine($"Что вы хотите сделать?\n" +
-                        $"{AddNewBuyerCommand} - Добавить нового клиента в базу\n" +
-                        $"{RemoveClientCommand} - Ликвидировать клиента\n" +
-                        $"{ReadClientInfoCommand} - Пробить клиента по глазу бога\n" +
-                        $"{ChangeClientInfoCommand} - Внушить клиенту новую информацию\n" +
-                        $"{ShowAllClientsInfoCommand} - Показать информацию о всех клиентах\n" +
-                        $"{GroupByFavouriteDrugCommand} - Группировать по любимому котику\n" +
-                        $"{ShowDistrictStatisticsCommand} - Подвести статистику по районам\n");
+                    case RemoveClientCommand:
+                        RemoveClient(drugLaboratory);
+                        break;
 
-                    string UserInput = Console.ReadLine();
+                    case ReadClientInfoCommand:
+                        ReadClientInfo(drugLaboratory);
+                        break;
 
-                    Console.Clear();
+                    case ShowAllClientsInfoCommand:
+                        ShowAllClients(drugLaboratory);
+                        break;
 
-                    switch (UserInput)
-                    {
-                        case AddNewBuyerCommand:
-                            AddNewClient(drugLaboratory);
-                            break;
+                    case ChangeClientInfoCommand:
+                        ChangeClientInformation(drugLaboratory);
+                        break;
 
-                        case RemoveClientCommand:
-                            RemoveClient(drugLaboratory);
-                            break;
+                    case GroupByFavouriteDrugCommand:
+                        GroupByFavouriteDrug(drugLaboratory);
+                        break;
 
-                        case ReadClientInfoCommand:
-                            ReadClientInfo(drugLaboratory);
-                            break;
+                    case ShowDistrictStatisticsCommand:
+                        GetDistrictStatistics(drugLaboratory);
+                        break;
 
-                        case ShowAllClientsInfoCommand:
-                            ShowAllClients(drugLaboratory);
-                            break;
-
-                        case ChangeClientInfoCommand:
-                            ChangeClientInformation(drugLaboratory);
-                            break;
-
-                        case GroupByFavouriteDrugCommand:
-                            GroupByFavouriteDrug(drugLaboratory);
-                            break;
-
-                        case ShowDistrictStatisticsCommand:
-                            GetDistrictStatistics(drugLaboratory);
-                            break;
-
-                        default:
-                            Console.WriteLine("Неверный ввод");
-                            break;
-                    }
+                    default:
+                        Console.WriteLine("Неверный ввод");
+                        break;
                 }
+            }
         }
 
         private static void AddNewClient(DrugLaboratory drugLaboratory)

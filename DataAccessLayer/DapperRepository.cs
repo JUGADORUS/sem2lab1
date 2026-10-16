@@ -1,19 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using Dapper;
+using Model;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using Model;
-using Dapper;
-using System.Configuration;
+using System.Reflection;
 
 namespace DataAccessLayer
 {
-    public class DapperRepository<T> : IRepository<T> where T : class, IDomainObject, new() 
+    public class DapperRepository<T> : IRepository<DrugBuyer>
     {
         private string _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
         /// <summary> Добавляет новую сущность в БД </summary>
         /// <param name="entity"> Объект сущности </param>
-        public void Add(T entity)
+        public void Add(DrugBuyer entity)
         {
             string sqlQuery = "INSERT INTO DrugBuyers (Name, District, FavouriteDrug) " +
                               "VALUES (@Name, @District, @FavouriteDrug); " +
@@ -40,30 +41,30 @@ namespace DataAccessLayer
 
         /// <summary> Получает список всех объектов в БД </summary>
         /// <returns> Возвращает список всех объектов из БД </returns>
-        public List<T> ReadAll()
+        public List<DrugBuyer> ReadAll()
         {
             using (SqlConnection db = new SqlConnection(_connectionString))
             {
-                return db.Query<T>("SELECT * FROM DrugBuyers").ToList();
+                return db.Query<DrugBuyer>("SELECT * FROM DrugBuyers").ToList();
             }
         }
 
         /// <summary> Получает конкретный объект из БД по ID </summary>
         /// <param name="id"> Уникальный идентификатор объекта </param>
         /// <returns> Возвращает объект с нужным ID </returns>
-        public T ReadById(int id)
+        public DrugBuyer ReadById(int id)
         {
             string sqlQuery = "SELECT * FROM DrugBuyers WHERE Id = @Id";
 
             using (SqlConnection db = new SqlConnection(_connectionString))
             {
-                return db.Query<T>(sqlQuery, new { Id = id }).FirstOrDefault();
+                return db.Query<DrugBuyer>(sqlQuery, new { Id = id }).FirstOrDefault();
             }
         }
 
         /// <summary> Обновляет информацию о сущетсвующем объекте в БД </summary>
         /// <param name="newObject"> Объект сущности с обновленными данными </param>
-        public void Update(T entity)
+        public void Update(DrugBuyer entity)
         {
             string sqlQuery = "UPDATE DrugBuyers SET Name = @Name, District = @District, FavouriteDrug = @FavouriteDrug WHERE Id = @Id";
 

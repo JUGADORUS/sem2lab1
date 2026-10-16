@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using BusinesssLogic;
 
 namespace WindowsForms
 {
