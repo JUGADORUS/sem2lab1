@@ -31,5 +31,15 @@ namespace WindowsForms
         {
 
         }
+
+        private void buttonStart_MouseEnter(object sender, EventArgs e)
+        {
+            buttonStart.BackgroundImage = Properties.Resources.Door_light_now;
+        }
+
+        private void buttonStart_MouseLeave(object sender, EventArgs e)
+        {
+            buttonStart.BackgroundImage = Properties.Resources.Door;
+        }
     }
 }

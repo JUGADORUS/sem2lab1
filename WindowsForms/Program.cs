@@ -12,13 +12,13 @@ namespace WindowsForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            const bool isEntityFramework = false;
+            const bool isEntityFramework = true;
             DrugLaboratory drugLab;
 
             if (isEntityFramework)
             {
                 var dbContext = new DataAccessLayer.DBContext();
-                var repository = new DataAccessLayer.EntityRepository<DrugBuyer>(dbContext);
+                var repository = new DataAccessLayer.EntityRepository<DrugBuyer>();
                 drugLab = new DrugLaboratory(repository);
             }
             else
