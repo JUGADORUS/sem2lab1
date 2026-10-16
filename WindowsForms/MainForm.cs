@@ -175,5 +175,10 @@ namespace WindowsForms
             StatisticsForm statisticsForm = new StatisticsForm(_drugLaboratory);
             statisticsForm.ShowDialog();
         }
+
+        private void DGV_Buyers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

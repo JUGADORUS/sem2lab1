@@ -38,6 +38,7 @@
             // 
             // DGV_Stats
             // 
+            this.DGV_Stats.BackgroundColor = System.Drawing.Color.DarkSlateGray;
             this.DGV_Stats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_Stats.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DistrictColl,
@@ -74,22 +75,27 @@
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(606, 415);
+            this.buttonBack.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.buttonBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonBack.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonBack.Location = new System.Drawing.Point(606, 396);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(143, 23);
+            this.buttonBack.Size = new System.Drawing.Size(143, 42);
             this.buttonBack.TabIndex = 1;
             this.buttonBack.Text = "Вернуться";
-            this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.UseVisualStyleBackColor = false;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
             // StatisticsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::WindowsForms.Properties.Resources.Inside_Van;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.DGV_Stats);
             this.Name = "StatisticsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "StatisticsForm";
             this.Load += new System.EventHandler(this.StatisticsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Stats)).EndInit();

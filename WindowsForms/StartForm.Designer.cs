@@ -33,6 +33,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelAuthor1 = new System.Windows.Forms.Label();
             this.labelAuthor2 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonStart
@@ -53,23 +57,26 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(12, 487);
+            this.buttonExit.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.buttonExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonExit.FlatAppearance.BorderSize = 0;
+            this.buttonExit.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonExit.Location = new System.Drawing.Point(12, 518);
             this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(155, 61);
+            this.buttonExit.Size = new System.Drawing.Size(78, 30);
             this.buttonExit.TabIndex = 1;
             this.buttonExit.Text = "Выйти";
-            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.UseVisualStyleBackColor = false;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(3, 9);
+            this.label1.Location = new System.Drawing.Point(239, 97);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(487, 108);
+            this.label1.Size = new System.Drawing.Size(0, 54);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Бизнес лабаратория \r\n(никакой черни)";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // labelAuthor1
@@ -77,25 +84,43 @@
             this.labelAuthor1.AutoSize = true;
             this.labelAuthor1.Location = new System.Drawing.Point(946, 9);
             this.labelAuthor1.Name = "labelAuthor1";
-            this.labelAuthor1.Size = new System.Drawing.Size(114, 16);
+            this.labelAuthor1.Size = new System.Drawing.Size(0, 16);
             this.labelAuthor1.TabIndex = 3;
-            this.labelAuthor1.Text = "В.И. Степаненко";
             // 
             // labelAuthor2
             // 
             this.labelAuthor2.AutoSize = true;
             this.labelAuthor2.Location = new System.Drawing.Point(958, 25);
             this.labelAuthor2.Name = "labelAuthor2";
-            this.labelAuthor2.Size = new System.Drawing.Size(102, 16);
+            this.labelAuthor2.Size = new System.Drawing.Size(0, 16);
             this.labelAuthor2.TabIndex = 4;
-            this.labelAuthor2.Text = "И.В. Савельев ";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::WindowsForms.Properties.Resources.Authors;
+            this.pictureBox1.Location = new System.Drawing.Point(839, 476);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(221, 92);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::WindowsForms.Properties.Resources.Title;
+            this.pictureBox2.Location = new System.Drawing.Point(-1, -2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(766, 187);
+            this.pictureBox2.TabIndex = 6;
+            this.pictureBox2.TabStop = false;
             // 
             // StartForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = global::WindowsForms.Properties.Resources.Door_no_light;
             this.ClientSize = new System.Drawing.Size(1062, 560);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelAuthor2);
             this.Controls.Add(this.labelAuthor1);
             this.Controls.Add(this.label1);
@@ -106,6 +131,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "StartForm";
             this.Load += new System.EventHandler(this.StartForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -118,5 +145,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelAuthor1;
         private System.Windows.Forms.Label labelAuthor2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
