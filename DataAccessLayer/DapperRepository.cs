@@ -3,14 +3,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using Model;
 using Dapper;
+using System.Configuration;
 
 namespace DataAccessLayer
 {
     public class DapperRepository<T> : IRepository<T> where T : class, IDomainObject, new() 
     {
-        static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:" +
-            "\\Users\\User\\source\\repos\\sem2lab1\\DataAccessLayer\\Database1.mdf;Integrated " +
-            "Security=True";
+        private string _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
         /// <summary> Добавляет новую сущность в БД </summary>
         /// <param name="entity"> Объект сущности </param>
@@ -20,7 +19,7 @@ namespace DataAccessLayer
                               "VALUES (@Name, @District, @FavouriteDrug); " +
                               "SELECT CAST(SCOPE_IDENTITY() as int)";
 
-            using (SqlConnection db = new SqlConnection(connectionString))
+            using (SqlConnection db = new SqlConnection(_connectionString))
             {
                 int newId = db.Query<int>(sqlQuery, entity).FirstOrDefault();
                 entity.Id = newId;
@@ -33,7 +32,7 @@ namespace DataAccessLayer
         {
             string sqlQuery = "DELETE FROM DrugBuyers WHERE Id = @Id";
 
-            using (SqlConnection db = new SqlConnection(connectionString))
+            using (SqlConnection db = new SqlConnection(_connectionString))
             {
                 db.Execute(sqlQuery, new { Id = id });
             }
@@ -43,7 +42,7 @@ namespace DataAccessLayer
         /// <returns> Возвращает список всех объектов из БД </returns>
         public List<T> ReadAll()
         {
-            using (SqlConnection db = new SqlConnection(connectionString))
+            using (SqlConnection db = new SqlConnection(_connectionString))
             {
                 return db.Query<T>("SELECT * FROM DrugBuyers").ToList();
             }
@@ -56,7 +55,7 @@ namespace DataAccessLayer
         {
             string sqlQuery = "SELECT * FROM DrugBuyers WHERE Id = @Id";
 
-            using (SqlConnection db = new SqlConnection(connectionString))
+            using (SqlConnection db = new SqlConnection(_connectionString))
             {
                 return db.Query<T>(sqlQuery, new { Id = id }).FirstOrDefault();
             }
@@ -68,7 +67,7 @@ namespace DataAccessLayer
         {
             string sqlQuery = "UPDATE DrugBuyers SET Name = @Name, District = @District, FavouriteDrug = @FavouriteDrug WHERE Id = @Id";
 
-            using (SqlConnection db = new SqlConnection(connectionString))
+            using (SqlConnection db = new SqlConnection(_connectionString))
             {
                 db.Execute(sqlQuery, entity);
             }

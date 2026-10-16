@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using DataAccessLayer;
+using Model;
 using System;
 using System.Windows.Forms;
 
@@ -17,13 +18,12 @@ namespace WindowsForms
 
             if (isEntityFramework)
             {
-                var dbContext = new DataAccessLayer.DBContext();
-                var repository = new DataAccessLayer.EntityRepository<DrugBuyer>();
+                EntityRepository<DrugBuyer> repository = new DataAccessLayer.EntityRepository<DrugBuyer>();
                 drugLab = new DrugLaboratory(repository);
             }
             else
             {
-                var repository = new DataAccessLayer.DapperRepository<DrugBuyer>();
+                DapperRepository<DrugBuyer> repository = new DataAccessLayer.DapperRepository<DrugBuyer>();
                 drugLab = new DrugLaboratory(repository);
             }
 

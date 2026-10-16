@@ -16,7 +16,7 @@ namespace sem2lab1
             const string GroupByFavouriteDrugCommand = "6";
             const string ShowDistrictStatisticsCommand = "7";
             
-            const bool isEntityFramework = true;
+            const bool isEntityFramework = false;
             DrugLaboratory drugLaboratory;
 
             if (isEntityFramework) 
