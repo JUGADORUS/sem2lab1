@@ -19,9 +19,8 @@ namespace sem2lab1
             const string GroupByFavouriteDrugCommand = "6";
             const string ShowDistrictStatisticsCommand = "7";
 
-            const bool isEntityFramework = false;
 
-            IKernel kernel = NinjectConfig.CreateKernel(isEntityFramework);
+            IKernel kernel = new StandardKernel(new SimpleConfigModule());
 
             DrugLaboratory drugLaboratory = kernel.Get<DrugLaboratory>();
             DrugStatisticsService statisticsService = kernel.Get<DrugStatisticsService>();
