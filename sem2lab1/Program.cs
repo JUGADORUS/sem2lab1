@@ -1,9 +1,9 @@
 ﻿using BusinesssLogic;
-using DataAccessLayer;
 using Model;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using Ninject;
+
 
 namespace sem2lab1
 {
@@ -18,23 +18,13 @@ namespace sem2lab1
             const string ShowAllClientsInfoCommand = "5";
             const string GroupByFavouriteDrugCommand = "6";
             const string ShowDistrictStatisticsCommand = "7";
-            
-            const bool isEntityFramework = false;
-            DrugLaboratory drugLaboratory;
-            DrugStatisticsService statisticsService;
 
-            if (isEntityFramework) 
-            {
-                EntityRepository<DrugBuyer> repository = new DataAccessLayer.EntityRepository<DrugBuyer>();
-                drugLaboratory = new DrugLaboratory(repository);
-                statisticsService = new DrugStatisticsService(repository);
-            }
-            else 
-            {
-                DapperRepository repository = new DataAccessLayer.DapperRepository();
-                drugLaboratory = new DrugLaboratory(repository);
-                statisticsService = new DrugStatisticsService(repository);
-            }
+            const bool isEntityFramework = false;
+
+            IKernel kernel = NinjectConfig.CreateKernel(isEntityFramework);
+
+            DrugLaboratory drugLaboratory = kernel.Get<DrugLaboratory>();
+            DrugStatisticsService statisticsService = kernel.Get<DrugStatisticsService>();
 
             while (true)
             {

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Reflection;
 
 namespace DataAccessLayer
 {
@@ -63,7 +62,7 @@ namespace DataAccessLayer
         }
 
         /// <summary> Обновляет информацию о сущетсвующем объекте в БД </summary>
-        /// <param name="newObject"> Объект сущности с обновленными данными </param>
+        /// <param name="entity"> Объект сущности с обновленными данными </param>
         public void Update(DrugBuyer entity)
         {
             string sqlQuery = "UPDATE DrugBuyers SET Name = @Name, District = @District, FavouriteDrug = @FavouriteDrug WHERE Id = @Id";
