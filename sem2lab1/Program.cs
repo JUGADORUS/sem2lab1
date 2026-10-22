@@ -3,6 +3,7 @@ using DataAccessLayer;
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace sem2lab1
 {
@@ -20,16 +21,19 @@ namespace sem2lab1
             
             const bool isEntityFramework = false;
             DrugLaboratory drugLaboratory;
+            DrugStatisticsService statisticsService;
 
             if (isEntityFramework) 
             {
                 EntityRepository<DrugBuyer> repository = new DataAccessLayer.EntityRepository<DrugBuyer>();
                 drugLaboratory = new DrugLaboratory(repository);
+                statisticsService = new DrugStatisticsService(repository);
             }
             else 
             {
-                DapperRepository<DrugBuyer> repository = new DataAccessLayer.DapperRepository<DrugBuyer>();
+                DapperRepository repository = new DataAccessLayer.DapperRepository();
                 drugLaboratory = new DrugLaboratory(repository);
+                statisticsService = new DrugStatisticsService(repository);
             }
 
             while (true)
@@ -73,11 +77,11 @@ namespace sem2lab1
                         break;
 
                     case GroupByFavouriteDrugCommand:
-                        GroupByFavouriteDrug(drugLaboratory);
+                        GroupByFavouriteDrug(statisticsService);
                         break;
 
                     case ShowDistrictStatisticsCommand:
-                        GetDistrictStatistics(drugLaboratory);
+                        GetDistrictStatistics(statisticsService);
                         break;
 
                     default:
@@ -230,9 +234,9 @@ namespace sem2lab1
             }
         }
 
-        private static void GetDistrictStatistics(DrugLaboratory drugLaboratory)
+        private static void GetDistrictStatistics(DrugStatisticsService statisticsService)
         {
-            Dictionary<string, Dictionary<string, int>> stats = drugLaboratory.GetDistrictStatistics();
+            Dictionary<string, Dictionary<string, int>> stats = statisticsService.GetDistrictStatistics();
 
             foreach( var district in stats) 
             {
@@ -247,13 +251,13 @@ namespace sem2lab1
             }
         }
 
-        private static void GroupByFavouriteDrug(DrugLaboratory drugLaboratory)
+        private static void GroupByFavouriteDrug(DrugStatisticsService statisticsService)
         {
-            List<string> uniqueDrugs = drugLaboratory.GetUniqueDrugs();
+            List<string> uniqueDrugs = statisticsService.GetUniqueDrugs();
 
             foreach(string drug in uniqueDrugs)
             {
-                List<DrugBuyer> drugBuyers = drugLaboratory.GetBuyersByDrug(drug);
+                List<DrugBuyer> drugBuyers = statisticsService.GetBuyersByDrug(drug);
 
                 Console.WriteLine($"Любимый наркотик: {drug}");
 

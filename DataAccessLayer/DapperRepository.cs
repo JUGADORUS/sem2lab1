@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace DataAccessLayer
 {
-    public class DapperRepository<T> : IRepository<DrugBuyer>
+    public class DapperRepository: IRepository<DrugBuyer>
     {
         private string _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
