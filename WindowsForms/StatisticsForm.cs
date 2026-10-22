@@ -1,5 +1,4 @@
-﻿using Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using BusinesssLogic;
@@ -8,11 +7,11 @@ namespace WindowsForms
 {
     public partial class StatisticsForm : Form
     {
-        private DrugLaboratory _drugLab;
-        public StatisticsForm(DrugLaboratory lab)
+        private DrugStatisticsService _drugStatisticsService;
+        public StatisticsForm(DrugStatisticsService lab)
         {
             InitializeComponent();
-            _drugLab = lab;
+            _drugStatisticsService = lab;
         }
 
         private void StatisticsForm_Load(object sender, EventArgs e)
@@ -24,7 +23,7 @@ namespace WindowsForms
         {
             DGV_Stats.Rows.Clear();
 
-            Dictionary<string,Dictionary<string,int>> stats = _drugLab.GetDistrictStatistics();
+            Dictionary<string,Dictionary<string,int>> stats = _drugStatisticsService.GetDistrictStatistics();
 
             foreach (var district in stats) 
             {

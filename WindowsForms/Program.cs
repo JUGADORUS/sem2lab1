@@ -1,8 +1,7 @@
-﻿using DataAccessLayer;
-using Model;
-using System;
+﻿using System;
 using System.Windows.Forms;
 using BusinesssLogic;
+using Ninject;
 
 namespace WindowsForms
 {
@@ -14,27 +13,17 @@ namespace WindowsForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            const bool isEntityFramework = false;
-            DrugLaboratory drugLab;
+            IKernel kernel = new StandardKernel(new SimpleConfigModule());
+
+            DrugLaboratory drugLaboratory = kernel.Get<DrugLaboratory>();
+            DrugStatisticsService statisticsService = kernel.Get<DrugStatisticsService>();
 
 
-            if (isEntityFramework)
-            {
-                EntityRepository<DrugBuyer> repository = new DataAccessLayer.EntityRepository<DrugBuyer>();
-                drugLab = new DrugLaboratory(repository);
-            }
-            else
-            {
-                DapperRepository<DrugBuyer> repository = new DataAccessLayer.DapperRepository<DrugBuyer>();
-                drugLab = new DrugLaboratory(repository);
-            }
-
-            
             StartForm startForm = new StartForm();
 
             if(startForm.ShowDialog() == DialogResult.OK) 
             {
-                Application.Run(new MainForm(drugLab));
+                Application.Run(new MainForm(drugLaboratory, statisticsService));
             }
         }
     }
