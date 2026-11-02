@@ -19,11 +19,9 @@ namespace sem2lab1
             const string GroupByFavouriteDrugCommand = "6";
             const string ShowDistrictStatisticsCommand = "7";
 
-
             IKernel kernel = new StandardKernel(new SimpleConfigModule());
 
-            DrugLaboratory drugLaboratory = kernel.Get<DrugLaboratory>();
-            DrugStatisticsService statisticsService = kernel.Get<DrugStatisticsService>();
+            IDrugLaboratory drugLaboratory = kernel.Get<IDrugLaboratory>();
 
             while (true)
             {
@@ -66,11 +64,11 @@ namespace sem2lab1
                         break;
 
                     case GroupByFavouriteDrugCommand:
-                        GroupByFavouriteDrug(statisticsService);
+                        GroupByFavouriteDrug(drugLaboratory);
                         break;
 
                     case ShowDistrictStatisticsCommand:
-                        GetDistrictStatistics(statisticsService);
+                        GetDistrictStatistics(drugLaboratory);
                         break;
 
                     default:
@@ -80,7 +78,7 @@ namespace sem2lab1
             }
         }
 
-        private static void AddNewClient(DrugLaboratory drugLaboratory)
+        private static void AddNewClient(IDrugLaboratory drugLaboratory)
         {
             Console.WriteLine("Введите имя нового торчка: ");
             string name = Console.ReadLine();
@@ -92,7 +90,7 @@ namespace sem2lab1
             drugLaboratory.AddNewBuyer(name, district, drug);
         }
 
-        private static void RemoveClient(DrugLaboratory drugLaboratory)
+        private static void RemoveClient(IDrugLaboratory drugLaboratory)
         {
             Console.WriteLine("Кого вы хотите ликвидировать? Введите Id: ");
             ShowAllClients(drugLaboratory);
@@ -114,7 +112,7 @@ namespace sem2lab1
             }
         }
 
-        private static void ReadClientInfo(DrugLaboratory drugLaboratory)
+        private static void ReadClientInfo(IDrugLaboratory drugLaboratory)
         {
             Console.WriteLine("Кого вы хотите проверить с глазом бога? Введите Id: ");
             ShowAllClients(drugLaboratory);
@@ -138,7 +136,7 @@ namespace sem2lab1
             }
         }
 
-        private static void ChangeClientInformation(DrugLaboratory drugLaboratory)
+        private static void ChangeClientInformation(IDrugLaboratory drugLaboratory)
         {
             Console.WriteLine("У кого вы хотите изменить информацию? Введите ID: ");
 
@@ -213,7 +211,7 @@ namespace sem2lab1
             }
         }
 
-        private static void ShowAllClients(DrugLaboratory drugLaboratory)
+        private static void ShowAllClients(IDrugLaboratory drugLaboratory)
         {
             List<DrugBuyer> drugBuyers = drugLaboratory.GetAllBuyers();
 
@@ -223,9 +221,9 @@ namespace sem2lab1
             }
         }
 
-        private static void GetDistrictStatistics(DrugStatisticsService statisticsService)
+        private static void GetDistrictStatistics(IDrugLaboratory drugLaboratory)
         {
-            Dictionary<string, Dictionary<string, int>> stats = statisticsService.GetDistrictStatistics();
+            Dictionary<string, Dictionary<string, int>> stats = drugLaboratory.GetDistrictStatistics();
 
             foreach( var district in stats) 
             {
@@ -240,13 +238,13 @@ namespace sem2lab1
             }
         }
 
-        private static void GroupByFavouriteDrug(DrugStatisticsService statisticsService)
+        private static void GroupByFavouriteDrug(IDrugLaboratory drugLaboratory)
         {
-            List<string> uniqueDrugs = statisticsService.GetUniqueDrugs();
+            List<string> uniqueDrugs = drugLaboratory.GetUniqueDrugs();
 
             foreach(string drug in uniqueDrugs)
             {
-                List<DrugBuyer> drugBuyers = statisticsService.GetBuyersByDrug(drug);
+                List<DrugBuyer> drugBuyers = drugLaboratory.GetBuyersByDrug(drug);
 
                 Console.WriteLine($"Любимый наркотик: {drug}");
 

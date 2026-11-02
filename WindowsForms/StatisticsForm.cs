@@ -7,11 +7,11 @@ namespace WindowsForms
 {
     public partial class StatisticsForm : Form
     {
-        private DrugStatisticsService _drugStatisticsService;
-        public StatisticsForm(DrugStatisticsService lab)
+        private IDrugLaboratory _drugLaboratory;
+        public StatisticsForm(IDrugLaboratory drugLaboratory)
         {
             InitializeComponent();
-            _drugStatisticsService = lab;
+            _drugLaboratory = drugLaboratory;
         }
 
         private void StatisticsForm_Load(object sender, EventArgs e)
@@ -23,7 +23,7 @@ namespace WindowsForms
         {
             DGV_Stats.Rows.Clear();
 
-            Dictionary<string,Dictionary<string,int>> stats = _drugStatisticsService.GetDistrictStatistics();
+            Dictionary<string,Dictionary<string,int>> stats = _drugLaboratory.GetDistrictStatistics();
 
             foreach (var district in stats) 
             {

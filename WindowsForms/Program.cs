@@ -15,7 +15,7 @@ namespace WindowsForms
 
             IKernel kernel = new StandardKernel(new SimpleConfigModule());
 
-            DrugLaboratory drugLaboratory = kernel.Get<DrugLaboratory>();
+            IDrugLaboratory drugLaboratory = kernel.Get<IDrugLaboratory>();
             DrugStatisticsService statisticsService = kernel.Get<DrugStatisticsService>();
 
 

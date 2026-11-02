@@ -8,14 +8,12 @@ namespace WindowsForms
 {
     public partial class MainForm : Form
     {
-        private DrugLaboratory _drugLaboratory;
-        private DrugStatisticsService _drugStatisticsService;
+        private IDrugLaboratory _drugLaboratory;
 
-        public MainForm(DrugLaboratory drugLaboratory, DrugStatisticsService drugStatisticsService)
+        public MainForm(IDrugLaboratory drugLaboratory, DrugStatisticsService drugStatisticsService)
         {
             InitializeComponent();
             _drugLaboratory = drugLaboratory;
-            _drugStatisticsService = drugStatisticsService;
 
             DGV_Buyers.ReadOnly = true;
             DGV_Buyers.AllowUserToAddRows = false;
@@ -33,7 +31,7 @@ namespace WindowsForms
         {
             listBoxDrugs.Items.Clear();
 
-            foreach(string drug in _drugStatisticsService.GetUniqueDrugs()) 
+            foreach(string drug in _drugLaboratory.GetUniqueDrugs()) 
             {
                 listBoxDrugs.Items.Add(drug);
             }
@@ -163,7 +161,7 @@ namespace WindowsForms
             string drug = listBoxDrugs.SelectedItem.ToString();
 
             DGV_Buyers.DataSource = null;
-            DGV_Buyers.DataSource = _drugStatisticsService.GetBuyersByDrug(drug);
+            DGV_Buyers.DataSource = _drugLaboratory.GetBuyersByDrug(drug);
         }
 
         private void button_Reset_Click(object sender, EventArgs e)
@@ -175,7 +173,7 @@ namespace WindowsForms
 
         private void bttnReportDistricts_Click(object sender, EventArgs e)
         {
-            StatisticsForm statisticsForm = new StatisticsForm(_drugStatisticsService);
+            StatisticsForm statisticsForm = new StatisticsForm(_drugLaboratory);
             statisticsForm.ShowDialog();
         }
 

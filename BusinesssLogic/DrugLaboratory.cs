@@ -4,13 +4,15 @@ using DataAccessLayer;
 
 namespace BusinesssLogic
 {
-    public class DrugLaboratory
+    public class DrugLaboratory : IDrugLaboratory
     {
         private readonly IRepository<DrugBuyer> _repository;
+        private readonly DrugStatisticsService _statisticsService;
 
-        public DrugLaboratory(IRepository<DrugBuyer> repository) 
+        public DrugLaboratory(IRepository<DrugBuyer> repository, DrugStatisticsService statisticsService)
         {
             _repository = repository;
+            _statisticsService = statisticsService;
         }
 
         /// <summary> Добавить нового покупателя </summary>
@@ -57,7 +59,7 @@ namespace BusinesssLogic
         {
             List<DrugBuyer> tempList = new List<DrugBuyer>();
 
-            foreach(DrugBuyer drugBuyer in _repository.ReadAll())
+            foreach (DrugBuyer drugBuyer in _repository.ReadAll())
             {
                 tempList.Add(drugBuyer);
             }
@@ -78,7 +80,7 @@ namespace BusinesssLogic
             }
         }
 
-        //// <summary> Меняет район на новый</summary>
+        /// <summary> Меняет район на новый</summary>
         /// <param name="district"> Район</param>
         /// <param name="id"> id </param>
         public void ChangeDistrict(string district, int id)
@@ -102,6 +104,29 @@ namespace BusinesssLogic
                 buyer.ChangeFavouriteDrug(favouriteDrug);
                 _repository.Update(buyer);
             }
+        }
+
+        /// <summary> Получает статистику по районам и их популярности </summary>
+        /// <returns> Возвращает словарь в котором ключ - район, а значение - словарь,
+        /// в котором ключ - котик, а значение - количество появлений</returns>
+        public Dictionary<string, Dictionary<string, int>> GetDistrictStatistics()
+        {
+            return _statisticsService.GetDistrictStatistics();
+        }
+
+        /// <summary> Получает список покупателей по их любимому котику </summary>
+        /// <param name="drug"> Любимый котик </param>
+        /// <returns> Возвращает список покупателей по их любимому котику </returns>
+        public List<DrugBuyer> GetBuyersByDrug(string drug)
+        {
+            return _statisticsService.GetBuyersByDrug(drug);
+        }
+
+        /// <summary> Получает список уникальных котиков </summary>
+        /// <returns> Возвращает список строк с уникальными котиками </returns>
+        public List<string> GetUniqueDrugs()
+        {
+            return _statisticsService.GetUniqueDrugs();
         }
     }
 }
