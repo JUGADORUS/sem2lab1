@@ -1,5 +1,7 @@
 ﻿using Model;
+using System;
 using System.Collections.Generic;
+using Shared;
 
 namespace BusinessLogic
 {
@@ -10,6 +12,7 @@ namespace BusinessLogic
         /// <param name="district"> Район</param>
         /// <param name="drug"> Котик</param>
         void AddNewBuyer(string name, string district, string drug);
+        event EventHandler<DrugBuyerEventArgs> BuyerAdded;
 
         /// <summary> Находит покупателя по ID </summary>
         /// <param name="id"> id</param>
