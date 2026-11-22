@@ -131,6 +131,10 @@
       <Project>{89ec5bee-ca2b-40e2-a9fa-b35fbd424d3d}</Project>
       <Name>Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{249dc549-d87b-433f-b52d-9f53ff1f23c4}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

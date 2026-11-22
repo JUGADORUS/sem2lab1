@@ -2,6 +2,7 @@
 using Model;
 using System.Windows.Forms;
 using BusinessLogic;
+using Shared;
 
 
 namespace WindowsForms
@@ -136,12 +137,7 @@ namespace WindowsForms
             if (result != DialogResult.Yes)
                 return;
 
-            if (drugBuyer.Name != name)
-                _drugLaboratory.ChangeName(name, id);
-            if (drugBuyer.District != district)
-                _drugLaboratory.ChangeDistrict(district, id);
-            if (drugBuyer.FavouriteDrug != favouriteDrug)
-                _drugLaboratory.ChangeFavouriteDrug(favouriteDrug, id);
+            _drugLaboratory.ChangeBuyer(name, district, favouriteDrug, id);
 
             MessageBox.Show("Данные успешно изменены.");
 

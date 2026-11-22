@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using DataAccessLayer;
 using Model;
-using DataAccessLayer;
+using Shared;
+using System;
+using System.Collections.Generic;
 
 namespace BusinessLogic
 {
@@ -8,6 +10,10 @@ namespace BusinessLogic
     {
         private readonly IRepository<DrugBuyer> _repository;
         private readonly DrugStatisticsService _statisticsService;
+
+        public event EventHandler<DrugBuyerEventArgs> BuyerAdded;
+        public event EventHandler<DrugBuyerEventArgs> BuyerRemoved;
+        public event EventHandler<DrugBuyerEventArgs> BuyerUpdated;
 
         public DrugLaboratory(IRepository<DrugBuyer> repository, DrugStatisticsService statisticsService)
         {
@@ -30,14 +36,16 @@ namespace BusinessLogic
             };
 
             _repository.Add(drugBuyer);
+
+            BuyerAdded?.Invoke(this, new DrugBuyerEventArgs(ToDto(drugBuyer)));
         }
 
         /// <summary> Находит покупателя по ID </summary>
         /// <param name="id"> id</param>
         /// <returns> Возвращает покупателя с нужным ID </returns>
-        public DrugBuyer FindBuyerById(int id)
+        public DrugBuyerDto FindBuyerById(int id)
         {
-            return _repository.ReadById(id);
+            return ToDto(_repository.ReadById(id));
         }
 
         /// <summary> Убирает покупателя из списка по Id </summary>
@@ -50,59 +58,40 @@ namespace BusinessLogic
                 return false;
 
             _repository.Delete(id);
+            BuyerRemoved?.Invoke(this, new DrugBuyerEventArgs(ToDto(buyer)));
             return true;
         }
 
         /// <summary> Получает список всех покупателей </summary>
         /// <returns> Возвращает список всех покупателей </returns>
-        public List<DrugBuyer> GetAllBuyers()
+        public List<DrugBuyerDto> GetAllBuyers()
         {
-            List<DrugBuyer> tempList = new List<DrugBuyer>();
+            List<DrugBuyerDto> tempList = new List<DrugBuyerDto>();
 
             foreach (DrugBuyer drugBuyer in _repository.ReadAll())
             {
-                tempList.Add(drugBuyer);
+                tempList.Add(ToDto(drugBuyer));
             }
 
             return tempList;
         }
 
-        /// <summary> Меняет имя на новое</summary>
+        /// <summary> Обновляет данные покупателя</summary>
         /// <param name="name"> Имя </param>
+        /// <param name="district"> Район </param>
+        /// <param name="favouriteDrug"> Любимый котик </param>
         /// <param name="id"> id </param>
-        public void ChangeName(string name, int id)
+        public void ChangeBuyer(string name, string district, string favouriteDrug, int id)
         {
-            DrugBuyer buyer = FindBuyerById(id);
+            DrugBuyer buyer = _repository.ReadById(id);
+
             if (buyer != null)
             {
                 buyer.ChangeName(name);
-                _repository.Update(buyer);
-            }
-        }
-
-        /// <summary> Меняет район на новый</summary>
-        /// <param name="district"> Район</param>
-        /// <param name="id"> id </param>
-        public void ChangeDistrict(string district, int id)
-        {
-            DrugBuyer buyer = FindBuyerById(id);
-            if (buyer != null)
-            {
                 buyer.ChangeDistrict(district);
-                _repository.Update(buyer);
-            }
-        }
-
-        /// <summary> Меняет любимый наркотик на новый</summary>
-        /// <param name="favouriteDrug"> Любимый котик </param>
-        /// <param name="id"> id </param>
-        public void ChangeFavouriteDrug(string favouriteDrug, int id)
-        {
-            DrugBuyer buyer = FindBuyerById(id);
-            if (buyer != null)
-            {
                 buyer.ChangeFavouriteDrug(favouriteDrug);
                 _repository.Update(buyer);
+                BuyerUpdated?.Invoke(this, new DrugBuyerEventArgs(ToDto(buyer)));
             }
         }
 
@@ -117,9 +106,16 @@ namespace BusinessLogic
         /// <summary> Получает список покупателей по их любимому котику </summary>
         /// <param name="drug"> Любимый котик </param>
         /// <returns> Возвращает список покупателей по их любимому котику </returns>
-        public List<DrugBuyer> GetBuyersByDrug(string drug)
+        public List<DrugBuyerDto> GetBuyersByDrug(string drug)
         {
-            return _statisticsService.GetBuyersByDrug(drug);
+            List<DrugBuyerDto> result = new List<DrugBuyerDto>();
+
+            foreach (DrugBuyer drugBuyer in _statisticsService.GetBuyersByDrug(drug))
+            {
+                result.Add(ToDto(drugBuyer));
+            }
+
+            return result;
         }
 
         /// <summary> Получает список уникальных котиков </summary>
@@ -127,6 +123,20 @@ namespace BusinessLogic
         public List<string> GetUniqueDrugs()
         {
             return _statisticsService.GetUniqueDrugs();
+        }
+
+        private static DrugBuyerDto ToDto(DrugBuyer buyer)
+        {
+            if (buyer == null)
+                return null;
+
+            return new DrugBuyerDto
+            {
+                Id = buyer.Id,
+                Name = buyer.Name,
+                District = buyer.District,
+                FavouriteDrug = buyer.FavouriteDrug
+            };
         }
     }
 }

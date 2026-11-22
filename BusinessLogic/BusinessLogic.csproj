@@ -90,6 +90,10 @@
       <Project>{67a3bca9-9e56-4b2b-82f3-f99f49a8e5bc}</Project>
       <Name>DataAccessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{249dc549-d87b-433f-b52d-9f53ff1f23c4}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

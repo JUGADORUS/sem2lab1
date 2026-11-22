@@ -3,6 +3,7 @@ using Model;
 using System;
 using System.Collections.Generic;
 using Ninject;
+using Shared;
 
 
 namespace sem2lab1
@@ -119,7 +120,7 @@ namespace sem2lab1
 
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                DrugBuyer buyer = drugLaboratory.FindBuyerById(id);
+                DrugBuyerDto buyer = drugLaboratory.FindBuyerById(id);
 
                 if (buyer != null)
                 {
@@ -144,7 +145,7 @@ namespace sem2lab1
 
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                DrugBuyer drugBuyer = drugLaboratory.FindBuyerById(id);
+                DrugBuyerDto drugBuyer = drugLaboratory.FindBuyerById(id);
 
                 if (drugBuyer == null)
                 {
@@ -160,21 +161,12 @@ namespace sem2lab1
                     $"Изменение информации торчка");
 
                 string newName = GetProperty("имя", name);
-                if (newName != name)
-                {
-                    drugLaboratory.ChangeName(newName, id);
-                }
-
                 string newDistrict = GetProperty("район", district);
-                if (newDistrict != district)
-                {
-                    drugLaboratory.ChangeDistrict(newDistrict, id);
-                }
-
                 string newDrug = GetProperty("котик", drug);
-                if (newDrug != drug)
+
+                if (newName != name || newDistrict != district || newDrug != drug)
                 {
-                    drugLaboratory.ChangeFavouriteDrug(newDrug, id);
+                    drugLaboratory.ChangeBuyer(newName, newDistrict, newDrug, id);
                 }
             }
             else
@@ -213,9 +205,9 @@ namespace sem2lab1
 
         private static void ShowAllClients(IDrugLaboratory drugLaboratory)
         {
-            List<DrugBuyer> drugBuyers = drugLaboratory.GetAllBuyers();
+            List<DrugBuyerDto> drugBuyers = drugLaboratory.GetAllBuyers();
 
-            foreach (DrugBuyer buyer in drugBuyers)
+            foreach (DrugBuyerDto buyer in drugBuyers)
             {
                 Console.WriteLine($"ID:{buyer.Id} - {buyer.Name}");
             }
@@ -244,11 +236,11 @@ namespace sem2lab1
 
             foreach(string drug in uniqueDrugs)
             {
-                List<DrugBuyer> drugBuyers = drugLaboratory.GetBuyersByDrug(drug);
+                List<DrugBuyerDto> drugBuyers = drugLaboratory.GetBuyersByDrug(drug);
 
                 Console.WriteLine($"Любимый наркотик: {drug}");
 
-                foreach( DrugBuyer drugBuyer in drugBuyers)
+                foreach(DrugBuyerDto drugBuyer in drugBuyers)
                 {
                     Console.WriteLine($"{drugBuyer.Name}, район - {drugBuyer.District}");
                 }
