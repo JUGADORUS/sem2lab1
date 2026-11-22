@@ -17,7 +17,7 @@ namespace Shared
 
         void ShowBuyers(List<DrugBuyerDto> buyers);
         void ShowDrugs(List<string> drugs);
-        //void ShowStatistics(List<DistrictStatisticDto> statistics);
+        void ShowStatistics(Dictionary<string, Dictionary<string, int>> statistics);
         void ShowMessage(string message);
     }
 }
