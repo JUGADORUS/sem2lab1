@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using BusinesssLogic;
+using BusinessLogic;
 using Ninject;
 
 namespace WindowsForms

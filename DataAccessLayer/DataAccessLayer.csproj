@@ -111,7 +111,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\Model.csproj">
+    <ProjectReference Include="..\Model\Model.csproj">
       <Project>{89ec5bee-ca2b-40e2-a9fa-b35fbd424d3d}</Project>
       <Name>Model</Name>
     </ProjectReference>

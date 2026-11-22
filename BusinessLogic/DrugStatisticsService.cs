@@ -2,7 +2,7 @@
 using Model;
 using System.Collections.Generic;
 
-namespace BusinesssLogic
+namespace BusinessLogic
 {
     public class DrugStatisticsService
     {

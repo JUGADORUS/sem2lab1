@@ -2,7 +2,7 @@
 using Model;
 using Ninject.Modules;
 
-namespace BusinesssLogic
+namespace BusinessLogic
 {
     public class SimpleConfigModule : NinjectModule
     {

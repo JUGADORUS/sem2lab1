@@ -2,7 +2,7 @@
 using Model;
 using DataAccessLayer;
 
-namespace BusinesssLogic
+namespace BusinessLogic
 {
     public class DrugLaboratory : IDrugLaboratory
     {
