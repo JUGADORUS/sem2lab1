@@ -12,8 +12,8 @@ namespace Shared
         event EventHandler<DrugBuyerEventArgs> BuyersByDrugRequested;
         event EventHandler StatisticsRequested;
 
-        event EventHandler<DrugBuyerEventArgs> BuyerRemoved;
-        event EventHandler<DrugBuyerEventArgs> BuyerUpdated;
+        //event EventHandler<DrugBuyerEventArgs> BuyerRemoved;
+        //event EventHandler<DrugBuyerEventArgs> BuyerUpdated;
 
         void ShowBuyers(List<DrugBuyerDto> buyers);
         void ShowDrugs(List<string> drugs);
