@@ -32,7 +32,7 @@ namespace Presenter
         {
             if (string.IsNullOrWhiteSpace(e.Buyer.Name) || string.IsNullOrWhiteSpace(e.Buyer.District) || string.IsNullOrWhiteSpace(e.Buyer.FavouriteDrug))
             {
-                _view.ShowMessage("Заполните все поля");
+                _view.ShowMessage("Заполните все поля.");
                 return;
             }
 
@@ -41,7 +41,7 @@ namespace Presenter
 
         private void OnBuyerAdded(object sender, DrugBuyerEventArgs e)
         {
-            _view.ShowMessage("Новый покупатель успешно добавлен");
+            _view.ShowMessage("Новый покупатель успешно добавлен.");
             RefreshAll();
         }
 
@@ -49,13 +49,13 @@ namespace Presenter
         {
             if (!_model.RemoveBuyer(e.Buyer.Id))
             {
-                _view.ShowMessage("Покупатель с таким ID не найден");
+                _view.ShowMessage("Покупатель с таким ID не найден.");
             }
         }
 
         private void OnBuyerRemoved(object sender, DrugBuyerEventArgs e)
         {
-            _view.ShowMessage($"Покупатель {e.Buyer.Name} успешно удалён");
+            _view.ShowMessage($"Покупатель {e.Buyer.Name} успешно удалён.");
             RefreshAll();
         }
 
@@ -65,7 +65,7 @@ namespace Presenter
 
             if (current == null)
             {
-                _view.ShowMessage("Покупатель с таким ID не найден");
+                _view.ShowMessage("Покупатель с таким ID не найден.");
                 return;
             }
 
@@ -75,7 +75,7 @@ namespace Presenter
 
             if (name == current.Name && district == current.District && drug == current.FavouriteDrug)
             {
-                _view.ShowMessage("Введите новые данные для изменения");
+                _view.ShowMessage("Введите новые данные для изменения.");
                 return;
             }
 
@@ -84,7 +84,7 @@ namespace Presenter
 
         private void OnBuyerUpdated(object sender, DrugBuyerEventArgs e)
         {
-            _view.ShowMessage($"Покупатель {e.Buyer.Name} успешно обновлён");
+            _view.ShowMessage($"Покупатель {e.Buyer.Name} успешно обновлён.");
             RefreshAll();
         }
 

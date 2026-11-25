@@ -49,7 +49,7 @@ namespace WindowsForms
 
         private void MainForm_Load1(object sender, EventArgs e)
         {
-            //????
+            AllBuyersRequested?.Invoke(this, EventArgs.Empty);
         }
 
         private void button_Create_Click_1(object sender, EventArgs e)
@@ -85,9 +85,22 @@ namespace WindowsForms
                 return;
             }
 
-            var dto = DGV_Buyers.CurrentRow.DataBoundItem as DrugBuyerDto;
-            if (dto == null) return;
-            // ????
+            var selectedDto = DGV_Buyers.CurrentRow.DataBoundItem as DrugBuyerDto;
+            if (selectedDto == null) return;
+
+            var dtoToUpdate = new DrugBuyerDto 
+            {
+                Id = selectedDto.Id,
+                Name = textBoxName.Text,
+                District = textBoxDistrict.Text,
+                FavouriteDrug = textBoxDrug.Text
+            };
+
+            UpdateBuyerRequested?.Invoke(this, new DrugBuyerEventArgs(dtoToUpdate));
+
+            textBoxName.Clear();
+            textBoxDistrict.Clear();
+            textBoxDrug.Clear();
         }
 
         private void listBoxDrugs_SelectedIndexChanged(object sender, EventArgs e)
