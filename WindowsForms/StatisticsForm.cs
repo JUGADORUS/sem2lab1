@@ -1,37 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using BusinessLogic;
 
 namespace WindowsForms
 {
     public partial class StatisticsForm : Form
     {
-        private IDrugLaboratory _drugLaboratory;
-        public StatisticsForm(IDrugLaboratory drugLaboratory)
+        private Dictionary<string, Dictionary<string, int>> _statistics;
+        public StatisticsForm(Dictionary<string, Dictionary<string, int>> statistics)
         {
             InitializeComponent();
-            _drugLaboratory = drugLaboratory;
+            _statistics = statistics;
         }
 
         private void StatisticsForm_Load(object sender, EventArgs e)
         {
-            LoadStats();
-        }
-
-        private void LoadStats() 
-        {
             DGV_Stats.Rows.Clear();
-
-            Dictionary<string,Dictionary<string,int>> stats = _drugLaboratory.GetDistrictStatistics();
-
-            foreach (var district in stats) 
+            foreach (var district in _statistics)
             {
-                foreach (var drug in district.Value) 
+                foreach (var drug in district.Value)
                 {
-                    DGV_Stats.Rows.Add(district.Key,drug.Key, drug.Value);
+                    DGV_Stats.Rows.Add(district.Key, drug.Key, drug.Value);
                 }
-            }            
+            }
         }
 
         private void DGV_Stats_CellContentClick(object sender, DataGridViewCellEventArgs e)
