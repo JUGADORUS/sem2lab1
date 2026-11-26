@@ -1,17 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+	<TargetFramework>net9.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputType>WinExe</OutputType>
+	<UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ninject" Version="3.3.6" />
-    <PackageReference Include="Ninject.MVC5" Version="3.3.0" />
-    <PackageReference Include="Ninject.Web.Common" Version="3.3.2" />
-    <PackageReference Include="Ninject.Web.Common.WebHost" Version="3.3.2" />
+    <PackageReference Include="Ninject" Version="3.3.3" />
   </ItemGroup>
 
   <ItemGroup>

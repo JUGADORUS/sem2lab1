@@ -1,258 +1,253 @@
-﻿using BusinessLogic;
-using Model;
-using System;
-using System.Collections.Generic;
-using Ninject;
-using Shared;
+﻿//using BusinessLogic;
+//using System;
+//using System.Collections.Generic;
+//using Shared;
 
 
-namespace sem2lab1
-{
-    internal static class Program
-    {
-        static void Main(string[] args)
-        {
-            const string AddNewBuyerCommand = "1";
-            const string RemoveClientCommand = "2";
-            const string ReadClientInfoCommand = "3";
-            const string ChangeClientInfoCommand = "4";
-            const string ShowAllClientsInfoCommand = "5";
-            const string GroupByFavouriteDrugCommand = "6";
-            const string ShowDistrictStatisticsCommand = "7";
+//namespace sem2lab1
+//{
+//    internal static class Program
+//    {
+//        static void Main(string[] args)
+//        {
+//            const string AddNewBuyerCommand = "1";
+//            const string RemoveClientCommand = "2";
+//            const string ReadClientInfoCommand = "3";
+//            const string ChangeClientInfoCommand = "4";
+//            const string ShowAllClientsInfoCommand = "5";
+//            const string GroupByFavouriteDrugCommand = "6";
+//            const string ShowDistrictStatisticsCommand = "7";
 
-            IKernel kernel = new StandardKernel(new SimpleConfigModule());
 
-            IDrugLaboratory drugLaboratory = kernel.Get<IDrugLaboratory>();
+//            while (true)
+//            {
+//                Continue();
+//                Console.Clear();
 
-            while (true)
-            {
-                Continue();
-                Console.Clear();
+//                Console.WriteLine($"Что вы хотите сделать?\n" +
+//                    $"{AddNewBuyerCommand} - Добавить нового клиента в базу\n" +
+//                    $"{RemoveClientCommand} - Ликвидировать клиента\n" +
+//                    $"{ReadClientInfoCommand} - Пробить клиента по глазу бога\n" +
+//                    $"{ChangeClientInfoCommand} - Внушить клиенту новую информацию\n" +
+//                    $"{ShowAllClientsInfoCommand} - Показать информацию о всех клиентах\n" +
+//                    $"{GroupByFavouriteDrugCommand} - Группировать по любимому котику\n" +
+//                    $"{ShowDistrictStatisticsCommand} - Подвести статистику по районам\n");
 
-                Console.WriteLine($"Что вы хотите сделать?\n" +
-                    $"{AddNewBuyerCommand} - Добавить нового клиента в базу\n" +
-                    $"{RemoveClientCommand} - Ликвидировать клиента\n" +
-                    $"{ReadClientInfoCommand} - Пробить клиента по глазу бога\n" +
-                    $"{ChangeClientInfoCommand} - Внушить клиенту новую информацию\n" +
-                    $"{ShowAllClientsInfoCommand} - Показать информацию о всех клиентах\n" +
-                    $"{GroupByFavouriteDrugCommand} - Группировать по любимому котику\n" +
-                    $"{ShowDistrictStatisticsCommand} - Подвести статистику по районам\n");
+//                string UserInput = Console.ReadLine();
 
-                string UserInput = Console.ReadLine();
+//                Console.Clear();
 
-                Console.Clear();
+//                switch (UserInput)
+//                {
+//                    case AddNewBuyerCommand:
+//                        AddNewClient(drugLaboratory);
+//                        break;
 
-                switch (UserInput)
-                {
-                    case AddNewBuyerCommand:
-                        AddNewClient(drugLaboratory);
-                        break;
+//                    case RemoveClientCommand:
+//                        RemoveClient(drugLaboratory);
+//                        break;
 
-                    case RemoveClientCommand:
-                        RemoveClient(drugLaboratory);
-                        break;
+//                    case ReadClientInfoCommand:
+//                        ReadClientInfo(drugLaboratory);
+//                        break;
 
-                    case ReadClientInfoCommand:
-                        ReadClientInfo(drugLaboratory);
-                        break;
+//                    case ShowAllClientsInfoCommand:
+//                        ShowAllClients(drugLaboratory);
+//                        break;
 
-                    case ShowAllClientsInfoCommand:
-                        ShowAllClients(drugLaboratory);
-                        break;
+//                    case ChangeClientInfoCommand:
+//                        ChangeClientInformation(drugLaboratory);
+//                        break;
 
-                    case ChangeClientInfoCommand:
-                        ChangeClientInformation(drugLaboratory);
-                        break;
+//                    case GroupByFavouriteDrugCommand:
+//                        GroupByFavouriteDrug(drugLaboratory);
+//                        break;
 
-                    case GroupByFavouriteDrugCommand:
-                        GroupByFavouriteDrug(drugLaboratory);
-                        break;
+//                    case ShowDistrictStatisticsCommand:
+//                        GetDistrictStatistics(drugLaboratory);
+//                        break;
 
-                    case ShowDistrictStatisticsCommand:
-                        GetDistrictStatistics(drugLaboratory);
-                        break;
+//                    default:
+//                        Console.WriteLine("Неверный ввод");
+//                        break;
+//                }
+//            }
+//        }
 
-                    default:
-                        Console.WriteLine("Неверный ввод");
-                        break;
-                }
-            }
-        }
+//        private static void AddNewClient(IDrugLaboratory drugLaboratory)
+//        {
+//            Console.WriteLine("Введите имя нового торчка: ");
+//            string name = Console.ReadLine();
+//            Console.WriteLine("Введите район нового торчка: ");
+//            string district = Console.ReadLine();
+//            Console.WriteLine("Введите любимый котик нового торчка: ");
+//            string drug = Console.ReadLine();
 
-        private static void AddNewClient(IDrugLaboratory drugLaboratory)
-        {
-            Console.WriteLine("Введите имя нового торчка: ");
-            string name = Console.ReadLine();
-            Console.WriteLine("Введите район нового торчка: ");
-            string district = Console.ReadLine();
-            Console.WriteLine("Введите любимый котик нового торчка: ");
-            string drug = Console.ReadLine();
+//            drugLaboratory.AddNewBuyer(name, district, drug);
+//        }
 
-            drugLaboratory.AddNewBuyer(name, district, drug);
-        }
+//        private static void RemoveClient(IDrugLaboratory drugLaboratory)
+//        {
+//            Console.WriteLine("Кого вы хотите ликвидировать? Введите Id: ");
+//            ShowAllClients(drugLaboratory);
 
-        private static void RemoveClient(IDrugLaboratory drugLaboratory)
-        {
-            Console.WriteLine("Кого вы хотите ликвидировать? Введите Id: ");
-            ShowAllClients(drugLaboratory);
+//            if (int.TryParse(Console.ReadLine(), out int id))
+//            {
+//                if (drugLaboratory.RemoveBuyer(id))
+//                {
+//                    Console.WriteLine("Клиент успешно ликвидирован");
+//                }
+//                else
+//                {
+//                    Console.WriteLine("Клиент с таким Id не найден");
+//                }
+//            }
+//            else
+//            {
+//                Console.WriteLine("Неверный ввод");
+//            }
+//        }
 
-            if (int.TryParse(Console.ReadLine(), out int id))
-            {
-                if (drugLaboratory.RemoveBuyer(id))
-                {
-                    Console.WriteLine("Клиент успешно ликвидирован");
-                }
-                else
-                {
-                    Console.WriteLine("Клиент с таким Id не найден");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Неверный ввод");
-            }
-        }
+//        private static void ReadClientInfo(IDrugLaboratory drugLaboratory)
+//        {
+//            Console.WriteLine("Кого вы хотите проверить с глазом бога? Введите Id: ");
+//            ShowAllClients(drugLaboratory);
 
-        private static void ReadClientInfo(IDrugLaboratory drugLaboratory)
-        {
-            Console.WriteLine("Кого вы хотите проверить с глазом бога? Введите Id: ");
-            ShowAllClients(drugLaboratory);
+//            if (int.TryParse(Console.ReadLine(), out int id))
+//            {
+//                DrugBuyerDto buyer = drugLaboratory.FindBuyerById(id);
 
-            if (int.TryParse(Console.ReadLine(), out int id))
-            {
-                DrugBuyerDto buyer = drugLaboratory.FindBuyerById(id);
+//                if (buyer != null)
+//                {
+//                    Console.WriteLine($"ID:{buyer.Id} - {buyer.Name}, район - {buyer.District}, любимый котик - {buyer.FavouriteDrug}");
+//                }
+//                else
+//                {
+//                    Console.WriteLine("Клиент с таким Id не найден");
+//                }
+//            }
+//            else
+//            {
+//                Console.WriteLine("Неверный ввод");
+//            }
+//        }
 
-                if (buyer != null)
-                {
-                    Console.WriteLine($"ID:{buyer.Id} - {buyer.Name}, район - {buyer.District}, любимый котик - {buyer.FavouriteDrug}");
-                }
-                else
-                {
-                    Console.WriteLine("Клиент с таким Id не найден");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Неверный ввод");
-            }
-        }
+//        private static void ChangeClientInformation(IDrugLaboratory drugLaboratory)
+//        {
+//            Console.WriteLine("У кого вы хотите изменить информацию? Введите ID: ");
 
-        private static void ChangeClientInformation(IDrugLaboratory drugLaboratory)
-        {
-            Console.WriteLine("У кого вы хотите изменить информацию? Введите ID: ");
+//            ShowAllClients(drugLaboratory);
 
-            ShowAllClients(drugLaboratory);
+//            if (int.TryParse(Console.ReadLine(), out int id))
+//            {
+//                DrugBuyerDto drugBuyer = drugLaboratory.FindBuyerById(id);
 
-            if (int.TryParse(Console.ReadLine(), out int id))
-            {
-                DrugBuyerDto drugBuyer = drugLaboratory.FindBuyerById(id);
+//                if (drugBuyer == null)
+//                {
+//                    Console.WriteLine("Клиент с таким Id не найден");
+//                    return;
+//                }
 
-                if (drugBuyer == null)
-                {
-                    Console.WriteLine("Клиент с таким Id не найден");
-                    return;
-                }
+//                string name = drugBuyer.Name;
+//                string district = drugBuyer.District;
+//                string drug = drugBuyer.FavouriteDrug;
 
-                string name = drugBuyer.Name;
-                string district = drugBuyer.District;
-                string drug = drugBuyer.FavouriteDrug;
+//                Console.WriteLine($"ID:{id} - {name}, район - {district}, любимый котик - {drug}\n" +
+//                    $"Изменение информации торчка");
 
-                Console.WriteLine($"ID:{id} - {name}, район - {district}, любимый котик - {drug}\n" +
-                    $"Изменение информации торчка");
+//                string newName = GetProperty("имя", name);
+//                string newDistrict = GetProperty("район", district);
+//                string newDrug = GetProperty("котик", drug);
 
-                string newName = GetProperty("имя", name);
-                string newDistrict = GetProperty("район", district);
-                string newDrug = GetProperty("котик", drug);
+//                if (newName != name || newDistrict != district || newDrug != drug)
+//                {
+//                    drugLaboratory.ChangeBuyer(newName, newDistrict, newDrug, id);
+//                }
+//            }
+//            else
+//            {
+//                Console.WriteLine("Неверный ввод");
+//            }
+//        }
 
-                if (newName != name || newDistrict != district || newDrug != drug)
-                {
-                    drugLaboratory.ChangeBuyer(newName, newDistrict, newDrug, id);
-                }
-            }
-            else
-            {
-                Console.WriteLine("Неверный ввод");
-            }
-        }
+//        private static string GetProperty(string property, string oldProperty)
+//        {
+//            string userInput = "";
+//            string newValueOfProperty = "";
 
-        private static string GetProperty(string property, string oldProperty)
-        {
-            string userInput = "";
-            string newValueOfProperty = "";
+//            while(userInput != "y" && userInput != "n")
+//            {
+//                Console.WriteLine($"Вы хотите изменить {property}? y/n");
+//                userInput = Console.ReadLine();
+//            }
 
-            while(userInput != "y" && userInput != "n")
-            {
-                Console.WriteLine($"Вы хотите изменить {property}? y/n");
-                userInput = Console.ReadLine();
-            }
-
-            if (userInput == "y")
-            {
-                Console.WriteLine($"Введите новое значение: {property}");
+//            if (userInput == "y")
+//            {
+//                Console.WriteLine($"Введите новое значение: {property}");
                 
-                while(newValueOfProperty == "")
-                {
-                    newValueOfProperty = Console.ReadLine();
-                }
+//                while(newValueOfProperty == "")
+//                {
+//                    newValueOfProperty = Console.ReadLine();
+//                }
 
-                return newValueOfProperty;
-            }
-            else
-            {
-                return oldProperty;
-            }
-        }
+//                return newValueOfProperty;
+//            }
+//            else
+//            {
+//                return oldProperty;
+//            }
+//        }
 
-        private static void ShowAllClients(IDrugLaboratory drugLaboratory)
-        {
-            List<DrugBuyerDto> drugBuyers = drugLaboratory.GetAllBuyers();
+//        private static void ShowAllClients(IDrugLaboratory drugLaboratory)
+//        {
+//            List<DrugBuyerDto> drugBuyers = drugLaboratory.GetAllBuyers();
 
-            foreach (DrugBuyerDto buyer in drugBuyers)
-            {
-                Console.WriteLine($"ID:{buyer.Id} - {buyer.Name}");
-            }
-        }
+//            foreach (DrugBuyerDto buyer in drugBuyers)
+//            {
+//                Console.WriteLine($"ID:{buyer.Id} - {buyer.Name}");
+//            }
+//        }
 
-        private static void GetDistrictStatistics(IDrugLaboratory drugLaboratory)
-        {
-            Dictionary<string, Dictionary<string, int>> stats = drugLaboratory.GetDistrictStatistics();
+//        private static void GetDistrictStatistics(IDrugLaboratory drugLaboratory)
+//        {
+//            Dictionary<string, Dictionary<string, int>> stats = drugLaboratory.GetDistrictStatistics();
 
-            foreach( var district in stats) 
-            {
-                Console.WriteLine($"Район: {district.Key}");
+//            foreach( var district in stats) 
+//            {
+//                Console.WriteLine($"Район: {district.Key}");
 
-                foreach(var drug in district.Value) 
-                {
-                    Console.WriteLine($"{drug.Key}, любимый у {drug.Value} людей.");
-                }
+//                foreach(var drug in district.Value) 
+//                {
+//                    Console.WriteLine($"{drug.Key}, любимый у {drug.Value} людей.");
+//                }
 
-                Console.WriteLine();
-            }
-        }
+//                Console.WriteLine();
+//            }
+//        }
 
-        private static void GroupByFavouriteDrug(IDrugLaboratory drugLaboratory)
-        {
-            List<string> uniqueDrugs = drugLaboratory.GetUniqueDrugs();
+//        private static void GroupByFavouriteDrug(IDrugLaboratory drugLaboratory)
+//        {
+//            List<string> uniqueDrugs = drugLaboratory.GetUniqueDrugs();
 
-            foreach(string drug in uniqueDrugs)
-            {
-                List<DrugBuyerDto> drugBuyers = drugLaboratory.GetBuyersByDrug(drug);
+//            foreach(string drug in uniqueDrugs)
+//            {
+//                List<DrugBuyerDto> drugBuyers = drugLaboratory.GetBuyersByDrug(drug);
 
-                Console.WriteLine($"Любимый наркотик: {drug}");
+//                Console.WriteLine($"Любимый наркотик: {drug}");
 
-                foreach(DrugBuyerDto drugBuyer in drugBuyers)
-                {
-                    Console.WriteLine($"{drugBuyer.Name}, район - {drugBuyer.District}");
-                }
+//                foreach(DrugBuyerDto drugBuyer in drugBuyers)
+//                {
+//                    Console.WriteLine($"{drugBuyer.Name}, район - {drugBuyer.District}");
+//                }
 
-                Console.WriteLine();
-            }
-        }
+//                Console.WriteLine();
+//            }
+//        }
 
-        private static void Continue()
-        {
-            Console.WriteLine("Для продолжения нажмите любую кнопку");
-            Console.ReadKey();
-        }
-    }
-}
+//        private static void Continue()
+//        {
+//            Console.WriteLine("Для продолжения нажмите любую кнопку");
+//            Console.ReadKey();
+//        }
+//    }
+//}

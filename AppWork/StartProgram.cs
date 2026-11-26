@@ -1,10 +1,8 @@
 ﻿using BusinessLogic;
 using Ninject;
 using Presenter;
-using System;
 using System.Windows.Forms;
 using WindowsForms;
-using static System.Net.Mime.MediaTypeNames;
 namespace AppWork
 {
     public class StartProgram
