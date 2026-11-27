@@ -14,6 +14,8 @@ namespace sem2lab1
         public event EventHandler<DrugBuyerEventArgs> BuyersByDrugRequested;
         public event EventHandler StatisticsRequested;
 
+        /// <summary> Отображает список покупателей </summary>
+        /// <param name="buyers"> список DTO покупателей для отображения.</param>
         public void ShowBuyers(List<DrugBuyerDto> buyers)
         {
             Console.WriteLine("\nСписок клиентов:");
@@ -23,6 +25,8 @@ namespace sem2lab1
             }
         }
 
+        /// <summary> Отображает список c названиями наркотиков </summary>
+        /// <param name="drugs"> список строк с названиями наркотиков </param>
         public void ShowDrugs(List<string> drugs)
         {
             Console.WriteLine("\nУникальные наркотики:");
@@ -32,6 +36,8 @@ namespace sem2lab1
             }
         }
 
+        /// <summary> Выводит статистику по районам </summary>
+        /// <param name="statistics"> словарь, где ключ - район,значение - словарь с наркотиками и их количеством </param>
         public void ShowStatistics(Dictionary<string, Dictionary<string, int>> statistics)
         {
             Console.WriteLine("\nСтатистика по районам:");
@@ -45,12 +51,14 @@ namespace sem2lab1
             }
         }
 
+        /// <summary>  Выводит messageBox с сообщением пользователю </summary>
+        /// <param name="message"> Текст сообщения для отображения </param>
         public void ShowMessage(string message)
         {
             Console.WriteLine($"[Сообщение]: {message}");
         }
 
-
+        /// <summary> Запускает и ведет основной цикл работы ConsoleView </summary>
         public void Run()
         {
             const string AddNewBuyerCommand = "1";

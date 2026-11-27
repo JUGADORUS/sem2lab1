@@ -3,6 +3,7 @@ using Ninject;
 using Presenter;
 using sem2lab1;
 using WindowsForms;
+using static System.Windows.Forms.AxHost;
 namespace AppWork
 {
     internal class StartProgram
@@ -20,9 +21,6 @@ namespace AppWork
 
             if(choice == "1") 
             {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-
                 StartForm startForm = new StartForm();
 
                 if (startForm.ShowDialog() == DialogResult.OK)
@@ -30,7 +28,7 @@ namespace AppWork
                     MainForm mainForm = new MainForm();
                     DrugPresenter presenter = new DrugPresenter(mainForm, drugLaboratory);
 
-                    Application.Run(mainForm);
+                    Starter.StartForm(mainForm);
                 }
             }
             else if (choice == "2")
@@ -41,7 +39,7 @@ namespace AppWork
             }
             else
             {
-                Console.WriteLine("Неверный выбор. Программа завершена.");
+                Console.WriteLine("Ввод не распознан.");
             }
 
         }

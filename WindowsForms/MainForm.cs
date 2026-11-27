@@ -25,6 +25,8 @@ namespace WindowsForms
             DGV_Buyers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
+        /// <summary> Отображает список покупателей в таблице </summary>
+        /// <param name="buyers"> список DTO покупателей для отображения.</param>
         public void ShowBuyers(List<DrugBuyerDto> buyers) 
         {
             DGV_Buyers.DataSource = null;
@@ -32,6 +34,8 @@ namespace WindowsForms
             listBoxDrugs.ClearSelected();
         }
 
+        /// <summary> Заполняет список ListBox названиями наркотиков </summary>
+        /// <param name="drugs"> список строк с названиями наркотиков </param>
         public void ShowDrugs(List<string> drugs) 
         {
             listBoxDrugs.Items.Clear();
@@ -42,12 +46,16 @@ namespace WindowsForms
             listBoxDrugs.ClearSelected();
         }
 
+        /// <summary> Открывает окно со статистикой по районам </summary>
+        /// <param name="statistics"> словарь, где ключ - район,значение - словарь с наркотиками и их количеством </param>
         public void ShowStatistics(Dictionary<string, Dictionary<string, int>> statistics) 
         {
             StatisticsForm statisticForm = new StatisticsForm(statistics);
             statisticForm.ShowDialog();
         }
 
+        /// <summary>  Показывает messageBox с сообщением пользователю </summary>
+        /// <param name="message"> Текст сообщения для отображения </param>
         public void ShowMessage(string message) 
         {
             MessageBox.Show(message);
