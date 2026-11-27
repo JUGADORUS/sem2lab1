@@ -12,6 +12,8 @@ namespace BusinessLogic
         /// <param name="district"> Район</param>
         /// <param name="drug"> Котик</param>
         void AddNewBuyer(string name, string district, string drug);
+
+        /// <summary> Уведомляет, что покупатель добавлен </summary>
         event EventHandler<DrugBuyerEventArgs> BuyerAdded;
 
         /// <summary> Находит покупателя по ID </summary>
@@ -23,6 +25,8 @@ namespace BusinessLogic
         /// <param name="id"> Id покупателя </param>
         /// <returns> true, если покупатель найден и удалён; иначе false </returns>
         bool RemoveBuyer(int id);
+
+        /// <summary> Уведомляет, что покупатель удален </summary>
         event EventHandler<DrugBuyerEventArgs> BuyerRemoved;
 
         /// <summary> Получает список всех покупателей </summary>
@@ -35,6 +39,8 @@ namespace BusinessLogic
         /// <param name="favouriteDrug"> Любимый котик </param>
         /// <param name="id"> id </param>
         void ChangeBuyer(string name, string district, string favouriteDrug, int id);
+
+        /// <summary> Уведомляет, что покупатель обновлен </summary>
         event EventHandler<DrugBuyerEventArgs> BuyerUpdated;
 
         /// <summary> Получает статистику по районам и их популярности </summary>
