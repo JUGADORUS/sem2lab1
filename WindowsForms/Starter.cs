@@ -4,12 +4,21 @@ namespace WindowsForms
 {
     public static class Starter
     {
-        // <summary>  Запускает работу приложения и запускает указанную форму </summary>
-        /// <param name="message"> Текст сообщения для отображения </param>
-        public static void StartForm(Form form)
+        /// <summary>
+        /// Инициализирует Windows Forms.
+        /// </summary>
+        public static void Initialize()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+        }
+
+        /// <summary>
+        /// Запускает указанную форму.
+        /// </summary>
+        /// <param name="form">Запускаемая форма</param>
+        public static void StartForm(Form form)
+        {
             Application.Run(form);
         }
     }

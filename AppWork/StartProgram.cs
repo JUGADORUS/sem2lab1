@@ -19,8 +19,10 @@ namespace AppWork
             IKernel kernel = new StandardKernel(new SimpleConfigModule());
             IDrugLaboratory drugLaboratory = kernel.Get<IDrugLaboratory>();
 
-            if(choice == "1") 
+            if (choice == "1")
             {
+                Starter.Initialize();
+
                 StartForm startForm = new StartForm();
 
                 if (startForm.ShowDialog() == DialogResult.OK)
